@@ -1,13 +1,12 @@
-import { Coins, Scroll, Map, LogOut } from "lucide-react";
+import { Home, Scroll, PlusSquare, User, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/store/authStore";
-import goldCoin from "@/assets/gold-coin.png";
 
 export const PixelHeader = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuthStore();
+  const { logout, isAuthenticated, user } = useAuthStore();
 
   const handleLogout = async () => {
     await logout();
@@ -15,24 +14,34 @@ export const PixelHeader = () => {
   };
   
   const navItems = [
+    { path: "/dashboard", icon: Home, label: "HOME" },
     { path: "/quests", icon: Scroll, label: "QUESTS" },
-    { path: "/profile", icon: Map, label: "STATS" },
+    { path: "/post", icon: PlusSquare, label: "POST" },
+    { path: "/profile", icon: User, label: "HERO" },
   ];
 
   return (
     <header className="bg-card/95 backdrop-blur-sm border-b-4 border-border p-3 sticky top-0 z-40">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
+      <div className="container mx-auto grid grid-cols-3 items-center gap-4">
+        {/* Logo Section */}
+        <Link to="/" className="flex items-center gap-3 group justify-self-start">
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-warning border-4 border-border flex items-center justify-center shadow-pixel-gold group-hover:animate-bounce-pixel">
             <span className="font-pixel text-primary-foreground text-[0.9rem]">LG</span>
           </div>
           <div className="hidden sm:block">
-            <span className="font-pixel text-pixel-base text-primary">LOBANG GO</span>
-            <p className="font-pixel text-[0.8rem] text-muted-foreground">ADVENTURE MODE</p>
+            {isAuthenticated && user ? (
+              <span className="font-pixel text-pixel-base text-primary">{user.name}</span>
+            ) : (
+              <>
+                <span className="font-pixel text-pixel-base text-primary">LOBANG GO</span>
+                <p className="font-pixel text-[0.8rem] text-muted-foreground">ADVENTURE MODE</p>
+              </>
+            )}
           </div>
         </Link>
         
-        <nav className="flex items-center gap-2">
+        {/* Center Navigation */}
+        <nav className="flex items-center justify-center gap-4">
           {navItems.map(({ path, icon: Icon, label }) => (
             <Link
               key={path}
@@ -49,12 +58,10 @@ export const PixelHeader = () => {
               <span className="font-pixel text-[0.9rem] hidden sm:block">{label}</span>
             </Link>
           ))}
-          
-          <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-primary/20 to-warning/20 border-4 border-primary/50 shadow-pixel-gold">
-            <img src={goldCoin} alt="Coins" className="w-7 h-7 animate-sparkle" style={{ imageRendering: 'pixelated' }} />
-            <span className="font-pixel text-[0.9rem] text-primary">RM 50</span>
-          </div>
-          
+        </nav>
+        
+        {/* Right Section: Logout */}
+        <div className="flex items-center gap-2 justify-self-end">
           {isAuthenticated && (
             <button
               onClick={handleLogout}
@@ -69,7 +76,7 @@ export const PixelHeader = () => {
               <span className="font-pixel text-[0.9rem] hidden sm:block">LOGOUT</span>
             </button>
           )}
-        </nav>
+        </div>
       </div>
     </header>
   );

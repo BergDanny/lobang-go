@@ -2,7 +2,6 @@ import { useState } from "react";
 import { User, Award, History, CreditCard, Star, Sword, Shield, Zap, Target } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { StatsDisplay } from "@/components/StatsDisplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -51,7 +50,7 @@ const Profile = () => {
     <PixelContainer>
       <PixelHeader />
       
-      <main className="container mx-auto p-4 pb-32">
+      <main className="container mx-auto p-4 pb-8">
         {/* Hero Card */}
         <div className="rpg-frame-gold p-6 mb-6">
           <div className="flex items-start gap-4">
@@ -254,7 +253,6 @@ const Profile = () => {
         </Card>
       </main>
 
-      <PixelNav />
     </PixelContainer>
   );
 };

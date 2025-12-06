@@ -3,6 +3,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoute";
 import AuthPage from "../pages/Auth/AuthPage";
 import SignUpPage from "../pages/Auth/SignUpPage";
+import Dashboard from "../pages/Dashboard";
 import Quests from "../pages/Quests";
 import QuestDetail from "../pages/QuestDetail";
 import PostQuest from "../pages/PostQuest";
@@ -39,6 +40,14 @@ export default function AppRoutes() {
       />
 
       {/* Protected routes - require authentication */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/quests"
         element={
