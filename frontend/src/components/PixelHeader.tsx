@@ -22,7 +22,7 @@ export const PixelHeader = () => {
   return (
     <header className="bg-card/95 backdrop-blur-sm border-b-4 border-border p-3 sticky top-0 z-40">
       <div className="container mx-auto flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/dashboard" className="flex items-center gap-3 group">
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-warning border-4 border-border flex items-center justify-center shadow-pixel-gold group-hover:animate-bounce-pixel">
             <span className="font-pixel text-primary-foreground text-[0.9rem]">LG</span>
           </div>
