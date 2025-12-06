@@ -60,7 +60,7 @@ const AuthPage = () => {
       // Handle backend validation errors
       if (error.response?.data?.errors) {
         const backendErrors = error.response.data.errors;
-        
+
         // Set field-specific errors from backend
         Object.keys(backendErrors).forEach((field) => {
           const fieldName = field as keyof LoginFormData;
@@ -216,6 +216,21 @@ const AuthPage = () => {
               >
                 CREATE CHARACTER
               </Button>
+            </div>
+
+            <div className="text-center space-y-3">
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-1 bg-border" />
+                <p className="font-pixel text-[0.7rem] text-muted-foreground">
+                  Demo Account Here
+                </p>
+                <div className="flex-1 h-1 bg-border" />
+              </div>
+
+              <div className="font-pixel text-[0.8rem] text-foreground space-y-1">
+                <div>USER 1: user1@lobanggo.com | PASS: password</div>
+                <div>USER 2: user2@lobanggo.com | PASS: password</div>
+              </div>
             </div>
           </div>
         </form>
