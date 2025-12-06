@@ -1,9 +1,8 @@
-import { MapPin, Coins, Zap, Clock, ChevronRight, Sword, Shield, Star } from "lucide-react";
+import { MapPin, Coins, Zap, Clock, ChevronRight, Sword } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 interface QuestCardProps {
   id: string;
@@ -39,27 +38,10 @@ export const QuestCard = ({
     other: { variant: "xp", icon: "✨" },
   };
 
-  const difficultyColors: Record<string, string> = {
-    easy: "text-success",
-    medium: "text-warning",
-    hard: "text-destructive",
-  };
-
   const { variant, icon } = categoryStyles[category.toLowerCase()] || categoryStyles.other;
 
   return (
     <Card className="hover:shadow-pixel-glow transition-all group relative overflow-hidden">
-      {/* Difficulty indicator */}
-      <div className="absolute top-2 right-2 z-10">
-        <div className={cn(
-          "flex items-center gap-1 px-2 py-1 bg-background/80 border-2 border-border",
-          difficultyColors[difficulty.toLowerCase()]
-        )}>
-          <Star className="w-5 h-5" fill="currentColor" strokeWidth={0} />
-          <span className="font-pixel text-[0.8rem]">{difficulty.toUpperCase()}</span>
-        </div>
-      </div>
-
       <CardHeader className="pb-2">
         <div className="flex items-start gap-3">
           <div className="text-3xl">{icon}</div>
