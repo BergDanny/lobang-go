@@ -1,10 +1,18 @@
-import { Coins, Scroll, Map } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Coins, Scroll, Map, LogOut } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/store/authStore";
 import goldCoin from "@/assets/gold-coin.png";
 
 export const PixelHeader = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuthStore();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
   
   const navItems = [
     { path: "/quests", icon: Scroll, label: "QUESTS" },
@@ -46,6 +54,21 @@ export const PixelHeader = () => {
             <img src={goldCoin} alt="Coins" className="w-6 h-6 animate-sparkle" style={{ imageRendering: 'pixelated' }} />
             <span className="font-pixel text-[0.7rem] text-primary">RM 50</span>
           </div>
+          
+          {isAuthenticated && (
+            <button
+              onClick={handleLogout}
+              className={cn(
+                "flex items-center gap-2 px-3 py-2 border-4 border-border transition-all",
+                "hover:bg-destructive/20 active:translate-x-1 active:translate-y-1",
+                "bg-card shadow-pixel-sm text-destructive hover:text-destructive"
+              )}
+              title="Logout"
+            >
+              <LogOut className="w-5 h-5" strokeWidth={3} />
+              <span className="font-pixel text-[0.7rem] hidden sm:block">LOGOUT</span>
+            </button>
+          )}
         </nav>
       </div>
     </header>
