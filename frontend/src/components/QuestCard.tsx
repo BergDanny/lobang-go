@@ -28,7 +28,7 @@ export const QuestCard = ({
   xp,
   category,
   deadline,
-}: QuestCardProps) => {
+}: Omit<QuestCardProps, 'difficulty' | 'status'>) => {
   const categoryStyles: Record<string, { variant: "default" | "success" | "warning" | "xp" | "forest" | "accent"; icon: any }> = {
     delivery: { variant: "forest", icon: "📦" },
     queue: { variant: "warning", icon: "⏳" },
