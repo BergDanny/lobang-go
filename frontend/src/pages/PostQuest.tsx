@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Scroll, MapPin, Coins, Clock, Sparkles } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -97,7 +96,7 @@ const PostQuest = () => {
     <PixelContainer>
       <PixelHeader />
       
-      <main className="container mx-auto p-4 pb-32">
+      <main className="container mx-auto p-4 pb-8">
         {/* Back Button */}
         <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
           <ArrowLeft className="w-5 h-5" strokeWidth={3} />
@@ -277,7 +276,6 @@ const PostQuest = () => {
         </form>
       </main>
 
-      <PixelNav />
     </PixelContainer>
   );
 };
