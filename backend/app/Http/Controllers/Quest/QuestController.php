@@ -7,6 +7,7 @@ use App\Models\Quest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Log, DB, Gate};
 use Illuminate\Validation\ValidationException;
+use Carbon\Carbon;
 
 class QuestController extends BaseController
 {
@@ -41,7 +42,7 @@ class QuestController extends BaseController
                 'location_from' => 'nullable|string|max:255',
                 'location_to' => 'required|string|max:255',
                 'bounty' => 'required|numeric|min:1',
-                'deadline' => 'required|date_format:Y-m-d H:i',
+                'deadline' => 'required|date',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 
@@ -54,7 +55,7 @@ class QuestController extends BaseController
                 'location_from' => $validated['location_from'],
                 'location_to' => $validated['location_to'],
                 'bounty' => $validated['bounty'],
-                'deadline' => $validated['deadline'],
+                'deadline' => Carbon::parse($validated['deadline']),
                 'status' => $validated['status'] ?? 'open',
                 'poster_id' => $request->user()->id,
                 // 'runner_id' => null,
@@ -128,11 +129,16 @@ class QuestController extends BaseController
                 'location_from' => 'sometimes|string|max:255',
                 'location_to' => 'sometimes|string|max:255',
                 'bounty' => 'sometimes|numeric|min:1',
-                'deadline' => 'sometimes|date_format:Y-m-d H:i',
+                'deadline' => 'sometimes|date',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 
             DB::beginTransaction();
+
+            // Convert deadline to Carbon instance if provided
+            if (isset($validated['deadline'])) {
+                $validated['deadline'] = Carbon::parse($validated['deadline']);
+            }
 
             $quest->update($validated);
             $quest->load(['poster', 'runner']);
