@@ -98,12 +98,12 @@ const QuestDetail = () => {
                 >
                   {quest.status.toUpperCase().replace('_', ' ')}
                 </Badge>
-                <Badge variant="warning">{difficulty}</Badge>
               </div>
               <h1 className="font-pixel text-pixel-sm sm:text-pixel-base leading-relaxed text-foreground">
                 {quest.title}
               </h1>
             </div>
+            <Badge variant="warning">{difficulty}</Badge>
           </div>
 
           {/* Quest Poster */}
