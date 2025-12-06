@@ -10,7 +10,7 @@ export interface QuestCardData {
   description: string;
   locationFrom: string;
   locationTo: string;
-  price: number;
+  bounty: number;
   xp: number;
   category: string;
   deadline: string;
@@ -38,18 +38,21 @@ function calculateDifficulty(bounty: number): string {
  * Map backend Quest to frontend QuestCard format
  */
 export function mapQuestToCard(quest: Quest): QuestCardData {
+  // Ensure bounty is a number
+  const bounty = typeof quest.bounty === 'number' ? quest.bounty : parseFloat(String(quest.bounty)) || 0;
+  
   return {
     id: quest.id,
     title: quest.title,
     description: quest.description,
     locationFrom: quest.location_from || "Not specified",
     locationTo: quest.location_to,
-    price: quest.bounty,
-    xp: calculateXP(quest.bounty),
+    bounty: bounty,
+    xp: calculateXP(bounty),
     category: quest.category,
     deadline: formatTime(quest.deadline),
     status: quest.status === "open" ? "open" : quest.status === "in_progress" ? "assigned" : "completed",
-    difficulty: calculateDifficulty(quest.bounty),
+    difficulty: calculateDifficulty(bounty),
   };
 }
 

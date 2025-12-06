@@ -30,10 +30,10 @@ export const PixelNav = () => {
                 ? "bg-forest text-foreground shadow-pixel-sm animate-bounce-pixel"
                 : "bg-card hover:bg-muted"
             )}>
-              <Icon className="w-5 h-5" strokeWidth={3} />
+              <Icon className="w-6 h-6" strokeWidth={3} />
             </div>
             <span className={cn(
-              "font-pixel text-[0.4rem]",
+              "font-pixel text-[0.7rem] sm:text-[0.8rem]",
               location.pathname === path ? "text-primary" : "text-muted-foreground"
             )}>{label}</span>
           </Link>
