@@ -103,11 +103,31 @@ export const useAuthStore = create<AuthState>()(
             error: null,
           });
         } catch (error) {
-          const axiosError = error as AxiosError<{ message?: string }>;
-          const errorMessage =
-            axiosError.response?.data?.message ||
-            axiosError.message ||
-            "Registration failed";
+          // Handle validation errors from backend
+          let errorMessage = "Registration failed";
+
+          const axiosError = error as AxiosError<{
+            message?: string;
+            errors?: Record<string, string[]>;
+          }>;
+
+          if (axiosError.response?.data) {
+            // Backend validation errors structure
+            if (axiosError.response.data.errors) {
+              // Laravel validation errors - format them nicely
+              const errors = axiosError.response.data.errors;
+              const errorMessages = Object.values(errors).flat();
+              errorMessage =
+                errorMessages[0] ||
+                axiosError.response.data.message ||
+                "Validation failed";
+            } else if (axiosError.response.data.message) {
+              errorMessage = axiosError.response.data.message;
+            }
+          } else if (axiosError.message) {
+            errorMessage = axiosError.message;
+          }
+
           set({
             error: errorMessage,
             isLoading: false,

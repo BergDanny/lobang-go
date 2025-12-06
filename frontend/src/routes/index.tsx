@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import PublicRoute from "../components/PublicRoute";
 import AuthPage from "../pages/Auth/AuthPage";
+import SignUpPage from "../pages/Auth/SignUpPage";
 import Quests from "../pages/Quests";
 import QuestDetail from "../pages/QuestDetail";
 import PostQuest from "../pages/PostQuest";
@@ -17,6 +18,14 @@ export default function AppRoutes() {
         element={
           <PublicRoute>
             <AuthPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <PublicRoute>
+            <SignUpPage />
           </PublicRoute>
         }
       />

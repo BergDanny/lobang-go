@@ -11,18 +11,28 @@ import { useToast } from "@/hooks/use-toast";
 import heroSprite from "@/assets/hero-sprite.png";
 import treasureChest from "@/assets/treasure-chest.png";
 
-// Zod schema for login validation
-const loginSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email format"),
-  password: z.string().min(1, "Password is required"),
-});
+// Zod schema for signup validation
+const signupSchema = z
+  .object({
+    name: z.string().min(1, "Name is required").min(2, "Name must be at least 2 characters"),
+    email: z.string().min(1, "Email is required").email("Invalid email format"),
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters"),
+    password_confirmation: z.string().min(1, "Password confirmation is required"),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Passwords do not match",
+    path: ["password_confirmation"],
+  });
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type SignUpFormData = z.infer<typeof signupSchema>;
 
-const AuthPage = () => {
+const SignUpPage = () => {
   const [showCursor, setShowCursor] = useState(true);
   const navigate = useNavigate();
-  const { login, isLoading, error, clearError } = useAuthStore();
+  const { register: registerUser, isLoading, error, clearError } = useAuthStore();
   const { toast } = useToast();
 
   const {
@@ -30,8 +40,8 @@ const AuthPage = () => {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<SignUpFormData>({
+    resolver: zodResolver(signupSchema),
   });
 
   useEffect(() => {
@@ -48,24 +58,29 @@ const AuthPage = () => {
     };
   }, [clearError]);
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: SignUpFormData) => {
     try {
       clearError();
-      await login(data);
+      await registerUser(data);
       toast({
-        title: "⚔️ WELCOME BACK!",
-        description: "Your adventure continues...",
+        title: "🎉 WELCOME HERO!",
+        description: "Your adventure begins now...",
       });
       navigate("/quests");
     } catch (error: any) {
       // Handle backend validation errors
       if (error.response?.data?.errors) {
         const backendErrors = error.response.data.errors;
-        
+
         // Set field-specific errors from backend
         Object.keys(backendErrors).forEach((field) => {
-          const fieldName = field as keyof LoginFormData;
-          if (fieldName === "email" || fieldName === "password") {
+          const fieldName = field as keyof SignUpFormData;
+          if (
+            fieldName === "name" ||
+            fieldName === "email" ||
+            fieldName === "password" ||
+            fieldName === "password_confirmation"
+          ) {
             setError(fieldName, {
               type: "server",
               message: Array.isArray(backendErrors[field])
@@ -79,9 +94,9 @@ const AuthPage = () => {
         const errorMessage =
           error.response?.data?.message ||
           error.message ||
-          "Login failed. Please try again.";
+          "Registration failed. Please try again.";
         toast({
-          title: "❌ LOGIN FAILED",
+          title: "❌ REGISTRATION FAILED",
           description: errorMessage,
           variant: "destructive",
         });
@@ -145,25 +160,46 @@ const AuthPage = () => {
           />
         </div>
 
-        {/* Login Form */}
+        {/* Sign Up Form */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="rpg-frame-gold p-6 space-y-6">
             <div className="text-center border-b-4 border-border pb-4">
               <h2 className="font-pixel text-pixel-xs text-primary">
-                ⚔️ ADVENTURER LOGIN ⚔️
+                ⚔️ CREATE CHARACTER ⚔️
               </h2>
             </div>
 
             {/* Backend Error Message */}
-            {error && !errors.email && !errors.password && (
-              <div className="p-3 bg-destructive/20 border-4 border-destructive">
-                <p className="font-pixel text-[0.5rem] text-destructive text-center">
-                  {error}
-                </p>
-              </div>
-            )}
+            {error &&
+              !errors.name &&
+              !errors.email &&
+              !errors.password &&
+              !errors.password_confirmation && (
+                <div className="p-3 bg-destructive/20 border-4 border-destructive">
+                  <p className="font-pixel text-[0.5rem] text-destructive text-center">
+                    {error}
+                  </p>
+                </div>
+              )}
 
             <div className="space-y-4">
+              <div>
+                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">
+                  NAME
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Hero Name"
+                  {...register("name")}
+                  className={errors.name ? "border-destructive" : ""}
+                />
+                {errors.name && (
+                  <p className="font-pixel text-[0.4rem] text-destructive mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
+              </div>
+
               <div>
                 <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">
                   EMAIL
@@ -197,6 +233,25 @@ const AuthPage = () => {
                   </p>
                 )}
               </div>
+
+              <div>
+                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">
+                  CONFIRM PASSWORD
+                </label>
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  {...register("password_confirmation")}
+                  className={
+                    errors.password_confirmation ? "border-destructive" : ""
+                  }
+                />
+                {errors.password_confirmation && (
+                  <p className="font-pixel text-[0.4rem] text-destructive mt-1">
+                    {errors.password_confirmation.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             <Button
@@ -208,14 +263,14 @@ const AuthPage = () => {
             >
               {isLoading
                 ? "LOADING..."
-                : `START ADVENTURE${showCursor ? " ▶" : "  "}`}
+                : `CREATE CHARACTER${showCursor ? " ▶" : "  "}`}
             </Button>
 
             <div className="text-center space-y-3">
               <div className="flex items-center gap-4">
                 <div className="flex-1 h-1 bg-border" />
                 <p className="font-pixel text-[0.4rem] text-muted-foreground">
-                  NEW HERO?
+                  ALREADY A HERO?
                 </p>
                 <div className="flex-1 h-1 bg-border" />
               </div>
@@ -223,9 +278,9 @@ const AuthPage = () => {
                 type="button"
                 variant="outline"
                 className="w-full"
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate("/login")}
               >
-                CREATE CHARACTER
+                LOGIN
               </Button>
             </div>
           </div>
@@ -265,5 +320,5 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default SignUpPage;
 
