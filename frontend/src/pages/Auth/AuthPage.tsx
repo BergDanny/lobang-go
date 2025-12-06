@@ -9,7 +9,6 @@ import { PixelContainer } from "@/components/PixelContainer";
 import { useAuthStore } from "@/store/authStore";
 import { useToast } from "@/hooks/use-toast";
 import heroSprite from "@/assets/hero-sprite.png";
-import treasureChest from "@/assets/treasure-chest.png";
 
 // Zod schema for login validation
 const loginSchema = z.object({
@@ -133,16 +132,6 @@ const AuthPage = () => {
           <p className="font-pixel-body text-pixel-lg text-foreground/80 mt-4">
             Start your journey. Complete quests. Earn rewards.
           </p>
-        </div>
-
-        {/* Treasure Chest Decoration */}
-        <div className="flex justify-center mb-6">
-          <img
-            src={treasureChest}
-            alt="Treasure"
-            className="w-16 h-16 animate-float object-contain"
-            style={{ imageRendering: "pixelated" }}
-          />
         </div>
 
         {/* Login Form */}
