@@ -1,12 +1,11 @@
 import { useEffect, useMemo } from "react";
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Package, 
-  Users, 
-  Clock, 
-  CheckCircle2, 
-  AlertCircle,
+import {
+  BarChart3,
+  TrendingUp,
+  Package,
+  Users,
+  Clock,
+  CheckCircle2,
   Target,
   Zap,
   Compass,
@@ -14,11 +13,9 @@ import {
 } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { useQuestStore } from "@/store/questStore";
 import { useAuthStore } from "@/store/authStore";
 import { Link } from "react-router-dom";
@@ -40,11 +37,11 @@ const Dashboard = () => {
     const completedQuests = quests.filter(q => q.status === 'completed').length;
     const pendingQuests = quests.filter(q => q.status === 'open').length;
     const inProgressQuests = quests.filter(q => q.status === 'in_progress').length;
-    
+
     // User-specific stats
     const userPostedQuests = quests.filter(q => q.poster?.email === user?.email).length;
     const userTakenQuests = quests.filter(q => q.runner?.email === user?.email).length;
-    const userCompletedQuests = quests.filter(q => 
+    const userCompletedQuests = quests.filter(q =>
       q.runner?.email === user?.email && q.status === 'completed'
     ).length;
 
@@ -89,7 +86,7 @@ const Dashboard = () => {
     <PixelContainer>
       <PixelHeader />
 
-      <main className="container mx-auto p-4 pb-32">
+      <main className="container mx-auto p-4 pb-8">
         {/* Page Title */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
@@ -134,19 +131,19 @@ const Dashboard = () => {
                 <p className="font-pixel text-pixel-base text-primary">{insights.totalQuests}</p>
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">TOTAL QUESTS</p>
               </Card>
-              
+
               <Card className="p-4 text-center border-4 border-border shadow-pixel">
                 <Compass className="w-8 h-8 mx-auto mb-2 text-success" strokeWidth={3} />
                 <p className="font-pixel text-pixel-base text-success">{insights.activeQuests}</p>
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">ACTIVE</p>
               </Card>
-              
+
               <Card className="p-4 text-center border-4 border-border shadow-pixel">
                 <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-accent" strokeWidth={3} />
                 <p className="font-pixel text-pixel-base text-accent">{insights.completedQuests}</p>
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">COMPLETED</p>
               </Card>
-              
+
               <Card className="p-4 text-center border-4 border-border shadow-pixel">
                 <Package className="w-8 h-8 mx-auto mb-2 text-warning" strokeWidth={3} />
                 <p className="font-pixel text-pixel-base text-warning">RM {Number(insights.totalBounty || 0).toFixed(0)}</p>
@@ -312,8 +309,6 @@ const Dashboard = () => {
           </>
         )}
       </main>
-
-      <PixelNav />
     </PixelContainer>
   );
 };

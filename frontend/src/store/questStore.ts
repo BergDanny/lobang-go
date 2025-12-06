@@ -16,7 +16,7 @@ interface QuestState {
   setCurrentQuest: (quest: Quest | null) => void;
 }
 
-export const useQuestStore = create<QuestState>((set, get) => ({
+export const useQuestStore = create<QuestState>((set) => ({
   quests: [],
   currentQuest: null,
   isLoading: false,

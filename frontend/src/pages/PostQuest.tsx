@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Scroll, MapPin, Coins, Clock, Sparkles } from "lucide-react";
+import { ArrowLeft, MapPin, Coins, Clock, Sparkles } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,7 @@ const PostQuest = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validation
     if (!selectedCategory) {
       toast({
@@ -58,10 +58,10 @@ const PostQuest = () => {
       // Convert datetime-local input to ISO string
       // datetime-local returns format: "YYYY-MM-DDTHH:mm"
       // We need to convert it to ISO datetime string
-      const deadlineDateTime = formData.deadline 
+      const deadlineDateTime = formData.deadline
         ? new Date(formData.deadline).toISOString()
         : new Date().toISOString();
-      
+
       // Map frontend form data to backend format
       const questData = {
         title: formData.title,
@@ -75,12 +75,12 @@ const PostQuest = () => {
       };
 
       await createQuest(questData);
-      
+
       toast({
         title: "⚔️ QUEST POSTED!",
         description: "Your quest is now live on the board. Heroes are on their way!",
       });
-      
+
       // Navigate to quests page
       navigate("/quests");
     } catch (error: any) {
@@ -95,7 +95,7 @@ const PostQuest = () => {
   return (
     <PixelContainer>
       <PixelHeader />
-      
+
       <main className="container mx-auto p-4 pb-8">
         {/* Back Button */}
         <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
@@ -105,10 +105,10 @@ const PostQuest = () => {
 
         {/* Page Title */}
         <div className="flex items-center gap-4 mb-6">
-          <img 
-            src={questScroll} 
-            alt="Quest" 
-            className="w-12 h-12 animate-float object-contain" 
+          <img
+            src={questScroll}
+            alt="Quest"
+            className="w-12 h-12 animate-float object-contain"
             style={{ imageRendering: 'pixelated' }}
           />
           <div>
@@ -165,7 +165,7 @@ const PostQuest = () => {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 />
               </div>
-              
+
               <div>
                 <label className="block font-pixel text-[1rem] sm:text-[1.1rem] mb-2 text-muted-foreground">DESCRIPTION</label>
                 <textarea
@@ -264,10 +264,10 @@ const PostQuest = () => {
           </div>
 
           {/* Submit Button */}
-          <Button 
-            type="submit" 
-            variant="gold" 
-            size="xl" 
+          <Button
+            type="submit"
+            variant="gold"
+            size="xl"
             className="w-full"
             disabled={isLoading}
           >
