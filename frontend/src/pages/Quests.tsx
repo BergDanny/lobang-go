@@ -1,7 +1,6 @@
 import questScroll from "@/assets/quest-scroll.png";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { QuestCard } from "@/components/QuestCard";
 import { Button } from "@/components/ui/button";
 import { mapQuestToCard } from "@/lib/quest-mapper";
@@ -46,7 +45,7 @@ const Quests = () => {
     <PixelContainer>
       <PixelHeader />
 
-      <main className="container mx-auto p-4 pb-32">
+      <main className="container mx-auto p-4 pb-8">
         {/* Page Title */}
         <div className="flex items-center gap-4 mb-6">
           <img
@@ -187,7 +186,6 @@ const Quests = () => {
         )}
       </main>
 
-      <PixelNav />
     </PixelContainer>
   );
 };
