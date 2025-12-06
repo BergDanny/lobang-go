@@ -99,8 +99,8 @@ const PostQuest = () => {
       
       <main className="container mx-auto p-4 pb-24">
         {/* Back Button */}
-        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.5rem] text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" strokeWidth={3} />
+        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground hover:text-primary transition-colors">
+          <ArrowLeft className="w-5 h-5" strokeWidth={3} />
           BACK TO QUEST BOARD
         </Link>
 
@@ -116,7 +116,7 @@ const PostQuest = () => {
             <h1 className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">
               POST NEW QUEST
             </h1>
-            <p className="font-pixel text-[0.5rem] text-muted-foreground">
+            <p className="font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground">
               Create an adventure for heroes to accept
             </p>
           </div>
@@ -136,7 +136,7 @@ const PostQuest = () => {
                     type="button"
                     onClick={() => setSelectedCategory(id)}
                     className={cn(
-                      "p-4 border-4 border-border font-pixel text-[0.5rem] transition-all",
+                      "p-4 border-4 border-border font-pixel text-[0.7rem] sm:text-[0.8rem] transition-all",
                       "active:translate-x-1 active:translate-y-1 active:shadow-none",
                       selectedCategory === id
                         ? `bg-${color} text-foreground shadow-pixel`
@@ -158,7 +158,7 @@ const PostQuest = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">QUEST TITLE</label>
+                <label className="block font-pixel text-[0.7rem] mb-2 text-muted-foreground">QUEST TITLE</label>
                 <Input
                   placeholder="e.g., Pick up my lunch from cafeteria"
                   value={formData.title}
@@ -167,7 +167,7 @@ const PostQuest = () => {
               </div>
               
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">DESCRIPTION</label>
+                <label className="block font-pixel text-[0.7rem] mb-2 text-muted-foreground">DESCRIPTION</label>
                 <textarea
                   className="w-full h-32 bg-input px-4 py-3 font-pixel-body text-pixel-base text-foreground border-4 border-border rounded-none shadow-pixel-inset placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                   placeholder="Describe what needs to be done in detail..."
@@ -188,7 +188,7 @@ const PostQuest = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">PICKUP POINT</label>
+                <label className="block font-pixel text-[0.7rem] mb-2 text-muted-foreground">PICKUP POINT</label>
                 <Input
                   placeholder="e.g., Main Cafeteria"
                   value={formData.locationFrom}
@@ -196,7 +196,7 @@ const PostQuest = () => {
                 />
               </div>
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">DELIVERY POINT</label>
+                <label className="block font-pixel text-[0.7rem] mb-2 text-muted-foreground">DELIVERY POINT</label>
                 <Input
                   placeholder="e.g., Block B, Room 204"
                   value={formData.locationTo}
@@ -213,8 +213,8 @@ const PostQuest = () => {
             </CardHeader>
             <CardContent className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="flex items-center gap-2 font-pixel text-[0.5rem] mb-2 text-muted-foreground">
-                  <Coins className="w-4 h-4 text-primary" strokeWidth={3} />
+                <label className="flex items-center gap-2 font-pixel text-[0.7rem] mb-2 text-muted-foreground">
+                  <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
                   REWARD (RM)
                 </label>
                 <Input
@@ -227,8 +227,8 @@ const PostQuest = () => {
                 />
               </div>
               <div>
-                <label className="flex items-center gap-2 font-pixel text-[0.5rem] mb-2 text-muted-foreground">
-                  <Clock className="w-4 h-4 text-destructive" strokeWidth={3} />
+                <label className="flex items-center gap-2 font-pixel text-[0.7rem] mb-2 text-muted-foreground">
+                  <Clock className="w-5 h-5 text-destructive" strokeWidth={3} />
                   DEADLINE
                 </label>
                 <Input
@@ -245,14 +245,14 @@ const PostQuest = () => {
           <div className="rpg-frame-gold p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-xp" strokeWidth={3} />
-                <span className="font-pixel text-[0.5rem] text-muted-foreground">HERO REWARD PREVIEW</span>
+                <Sparkles className="w-6 h-6 text-xp" strokeWidth={3} />
+                <span className="font-pixel text-[0.7rem] text-muted-foreground">HERO REWARD PREVIEW</span>
               </div>
               <div className="flex items-center gap-4">
-                <span className="font-pixel text-pixel-xs text-primary">
+                <span className="font-pixel text-pixel-sm text-primary">
                   RM {formData.price || "0"}
                 </span>
-                <span className="font-pixel text-pixel-xs text-xp">
+                <span className="font-pixel text-pixel-sm text-xp">
                   +{formData.price ? Math.round(Number(formData.price) * 10) : 0} XP
                 </span>
               </div>

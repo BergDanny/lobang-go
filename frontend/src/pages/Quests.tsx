@@ -59,7 +59,7 @@ const Quests = () => {
             <h1 className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">
               QUEST BOARD
             </h1>
-            <p className="font-pixel text-[0.5rem] text-muted-foreground">
+            <p className="font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground">
               Choose your adventure wisely, hero
             </p>
           </div>
@@ -72,14 +72,14 @@ const Quests = () => {
               key={id}
               onClick={() => setActiveCategory(id)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 border-4 border-border font-pixel text-[0.5rem] transition-all",
+                "flex items-center gap-2 px-4 py-2 border-4 border-border font-pixel text-[0.7rem] sm:text-[0.8rem] transition-all",
                 "active:translate-x-1 active:translate-y-1 active:shadow-none",
                 activeCategory === id
                   ? "bg-forest text-foreground shadow-pixel"
                   : "bg-card shadow-pixel-sm hover:bg-muted"
               )}
             >
-              <Icon className="w-4 h-4" strokeWidth={3} />
+              <Icon className="w-5 h-5" strokeWidth={3} />
               {label}
             </button>
           ))}
@@ -149,7 +149,7 @@ const Quests = () => {
                 <p className="font-pixel text-pixel-xs text-coin">
                   +{filteredQuests.reduce((sum, q) => sum + q.xp, 0)} XP
                 </p>
-                <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                <p className="font-pixel text-[0.6rem] text-muted-foreground">
                   TOTAL AVAILABLE
                 </p>
               </div>

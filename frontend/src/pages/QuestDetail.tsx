@@ -84,8 +84,8 @@ const QuestDetail = () => {
       
       <main className="container mx-auto p-4 pb-24">
         {/* Back Button */}
-        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.5rem] text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-4 h-4" strokeWidth={3} />
+        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground hover:text-primary transition-colors">
+          <ArrowLeft className="w-5 h-5" strokeWidth={3} />
           BACK TO QUEST BOARD
         </Link>
 
@@ -108,16 +108,16 @@ const QuestDetail = () => {
           {quest.poster && (
             <div className="flex items-center gap-3 p-3 bg-background/50 border-2 border-border">
               <div className="w-12 h-12 bg-forest border-4 border-border flex items-center justify-center">
-                <span className="font-pixel text-[0.5rem] text-foreground">👤</span>
+                <span className="font-pixel text-[0.7rem] text-foreground">👤</span>
               </div>
               <div className="flex-1">
-                <p className="font-pixel text-[0.5rem] text-primary">{quest.poster.name}</p>
+                <p className="font-pixel text-[0.7rem] sm:text-[0.8rem] text-primary">{quest.poster.name}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="xp" className="text-[0.4rem]">POSTER</Badge>
+                  <Badge variant="xp" className="text-[0.6rem]">POSTER</Badge>
                 </div>
               </div>
               <div className="text-right">
-                <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                <p className="font-pixel text-[0.6rem] text-muted-foreground">
                   {formatDateTime(quest.created_at)}
                 </p>
               </div>
@@ -138,7 +138,7 @@ const QuestDetail = () => {
                 <div className="flex items-center gap-3 p-3 bg-forest/20 border-4 border-forest/50">
                   <MapPin className="w-5 h-5 text-forest-light" strokeWidth={3} />
                   <div>
-                    <p className="font-pixel text-[0.4rem] text-muted-foreground">PICKUP</p>
+                    <p className="font-pixel text-[0.6rem] text-muted-foreground">PICKUP</p>
                     <p className="font-pixel-body text-pixel-base">{quest.location_from}</p>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ const QuestDetail = () => {
               <div className="flex items-center gap-3 p-3 bg-success/20 border-4 border-success/50">
                 <MapPin className="w-5 h-5 text-success" strokeWidth={3} />
                 <div>
-                  <p className="font-pixel text-[0.4rem] text-muted-foreground">DELIVER TO</p>
+                  <p className="font-pixel text-[0.6rem] text-muted-foreground">DELIVER TO</p>
                   <p className="font-pixel-body text-pixel-base">{quest.location_to}</p>
                 </div>
               </div>
@@ -182,16 +182,16 @@ const QuestDetail = () => {
               </Badge>
               {quest.runner && (
                 <div className="flex items-center gap-2">
-                  <span className="font-pixel text-[0.5rem] text-muted-foreground">RUNNER:</span>
-                  <span className="font-pixel text-[0.5rem] text-primary">{quest.runner.name}</span>
+                  <span className="font-pixel text-[0.7rem] text-muted-foreground">RUNNER:</span>
+                  <span className="font-pixel text-[0.7rem] text-primary">{quest.runner.name}</span>
                 </div>
               )}
             </div>
             <div className="mt-4 space-y-2">
-              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+              <p className="font-pixel text-[0.6rem] text-muted-foreground">
                 Created: {formatDateTime(quest.created_at)}
               </p>
-              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+              <p className="font-pixel text-[0.6rem] text-muted-foreground">
                 Updated: {formatDateTime(quest.updated_at)}
               </p>
             </div>
