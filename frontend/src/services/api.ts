@@ -99,4 +99,11 @@ export const questApi = {
   delete: async (id: string): Promise<void> => {
     await apiClient.delete(`/quests/${id}`);
   },
+
+  take: async (id: string): Promise<Quest> => {
+    const response = await apiClient.post<ApiResponse<Quest>>(
+      `/quests/${id}/take`
+    );
+    return handleResponse<Quest>(response);
+  },
 };

@@ -254,4 +254,29 @@ class QuestController extends BaseController
             return $this->sendError('Failed to get taken quests.', ['exception' => $e->getMessage()]);
         }
     }
+
+    public function take_quest(Request $request, Quest $quest)
+    {
+        try {
+            if ($quest->status !== 'open') {
+                return $this->sendError('Quest is not open for taking.', [], 403);
+            }
+
+            if ($quest->poster_id === $request->user()->id) {
+                return $this->sendError('You cannot take your own quest.', [], 403);
+            }
+
+            $quest->updateOrFail([
+                'status' => 'in_progress',
+                'runner_id' => $request->user()->id,
+            ]);
+
+            $quest->load(['poster', 'runner']);
+
+            return $this->sendResponse($quest, 'Quest taken successfully.');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return $this->sendError('Failed to take quest.', ['exception' => $e->getMessage()]);
+        }   
+    }
 }
