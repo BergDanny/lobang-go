@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin, Coins, Zap, Clock, User, Swords, Shield, Star, Info, Calendar, UserCircle, TrendingUp, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Shield } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { useQuestStore } from "@/store/questStore";
-import { formatTime, formatDateTime, formatDate, getRelativeTime } from "@/lib/time-utils";
+import { formatTime } from "@/lib/time-utils";
 
 const QuestDetail = () => {
   const { id } = useParams();
@@ -64,23 +63,16 @@ const QuestDetail = () => {
   }
 
   const quest = currentQuest;
-  const bountyValue = typeof quest.bounty === 'number' ? quest.bounty : parseFloat(String(quest.bounty || 0));
-  const xp = calculateXP(bountyValue);
-  const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" : 
-                        quest.category.toLowerCase() === "queue" ? "⏳" : 
-                        quest.category.toLowerCase() === "printing" ? "📄" : "✨";
-  
-  // Calculate time until deadline
-  const deadlineDate = new Date(quest.deadline);
-  const now = new Date();
-  const timeUntilDeadline = deadlineDate.getTime() - now.getTime();
-  const hoursUntilDeadline = Math.floor(timeUntilDeadline / (1000 * 60 * 60));
-  const isOverdue = timeUntilDeadline < 0;
+  const xp = calculateXP(quest.bounty);
+  const difficulty = calculateDifficulty(quest.bounty);
+  const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" :
+    quest.category.toLowerCase() === "queue" ? "⏳" :
+      quest.category.toLowerCase() === "printing" ? "📄" : "✨";
 
   return (
     <PixelContainer>
       <PixelHeader />
-      
+
       <main className="container mx-auto p-4 pb-8">
         {/* Back Button */}
         <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
@@ -102,12 +94,25 @@ const QuestDetail = () => {
                   {quest.status.toUpperCase().replace('_', ' ')}
                 </Badge>
               </div>
-              <h1 className="font-pixel text-pixel-base sm:text-pixel-lg leading-relaxed text-foreground mb-1">
-                {quest.title}
-              </h1>
-              {quest.poster && (
+            </div>
+            <Badge variant="warning">{difficulty}</Badge>
+          </div>
+
+          {/* Quest Poster */}
+          {quest.poster && (
+            <div className="flex items-center gap-3 p-3 bg-background/50 border-2 border-border">
+              <div className="w-12 h-12 bg-forest border-4 border-border flex items-center justify-center">
+                <span className="font-pixel text-[0.9rem] text-foreground">👤</span>
+              </div>
+              <div className="flex-1">
+                <p className="font-pixel text-[0.9rem] sm:text-[1rem] text-primary">{quest.poster.name}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge variant="xp" className="text-[0.8rem]">POSTER</Badge>
+                </div>
+              </div>
+              <div className="text-right">
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                  Posted by {quest.poster.name} • {getRelativeTime(quest.created_at)}
+                  {new Date(quest.created_at).toLocaleString()}
                 </p>
               )}
             </div>
@@ -122,21 +127,10 @@ const QuestDetail = () => {
               DESCRIPTION
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <p className="font-pixel-body text-pixel-lg leading-relaxed whitespace-pre-wrap">{quest.description}</p>
-          </CardContent>
-        </Card>
+          <CardContent className="space-y-4">
+            <p className="font-pixel-body text-pixel-lg leading-relaxed">{quest.description}</p>
 
-        {/* Location Information */}
-        <Card className="mb-4 border-4 border-border shadow-pixel">
-          <CardHeader className="pb-2">
-            <CardTitle className="font-pixel text-pixel-sm flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-success" strokeWidth={3} />
-              LOCATIONS
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {quest.location_from && (
                 <div className="flex items-start gap-2 p-3 bg-forest/20 border-2 border-forest/50">
                   <MapPin className="w-5 h-5 text-forest-light mt-1" strokeWidth={3} />
@@ -146,34 +140,20 @@ const QuestDetail = () => {
                   </div>
                 </div>
               )}
-              <div className="flex items-start gap-2 p-3 bg-success/20 border-2 border-success/50">
-                <MapPin className="w-5 h-5 text-success mt-1" strokeWidth={3} />
-                <div className="flex-1">
-                  <p className="font-pixel text-[0.8rem] text-muted-foreground mb-1">DELIVER TO</p>
-                  <p className="font-pixel-body text-pixel-base">{quest.location_to}</p>
+              <div className="flex items-center gap-3 p-3 bg-success/20 border-4 border-success/50">
+                <MapPin className="w-6 h-6 text-success" strokeWidth={3} />
+                <div>
+                  <p className="font-pixel text-[0.8rem] text-muted-foreground">DELIVER TO</p>
+                  <p className="font-pixel-body text-pixel-lg">{quest.location_to}</p>
                 </div>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Rewards & Deadline */}
-        <div className="grid sm:grid-cols-2 gap-4 mb-4">
-          {/* Rewards */}
-          <Card className="border-4 border-border shadow-pixel">
-            <CardHeader className="pb-2">
-              <CardTitle className="font-pixel text-pixel-sm flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-warning" strokeWidth={3} />
-                REWARDS
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex items-center gap-3 p-3 bg-primary/20 border-2 border-primary/50">
-                <Coins className="w-6 h-6 text-primary" strokeWidth={3} />
-                <div>
-                  <p className="font-pixel text-[0.8rem] text-muted-foreground">BOUNTY</p>
-                  <p className="font-pixel text-pixel-base text-primary">RM {bountyValue.toFixed(2)}</p>
-                </div>
+            {/* Rewards */}
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 p-3 bg-primary/20 border-4 border-primary/50">
+                <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
+                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">RM {quest.bounty.toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-xp/20 border-2 border-xp/50">
                 <Zap className="w-6 h-6 text-xp" strokeWidth={3} />
@@ -202,67 +182,30 @@ const QuestDetail = () => {
                     <p className="font-pixel text-[0.8rem] text-muted-foreground">{formatTime(quest.deadline)}</p>
                   </div>
                 </div>
-                {isOverdue ? (
-                  <Badge variant="destructive" className="mt-2">OVERDUE</Badge>
-                ) : hoursUntilDeadline < 24 ? (
-                  <Badge variant="warning" className="mt-2">
-                    {hoursUntilDeadline > 0 ? `${hoursUntilDeadline} HOURS LEFT` : 'DUE SOON'}
-                  </Badge>
-                ) : (
-                  <Badge variant="success" className="mt-2">
-                    {Math.floor(hoursUntilDeadline / 24)} DAYS LEFT
-                  </Badge>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+              )}
+            </div>
+            <div className="mt-4 space-y-2">
+              <p className="font-pixel text-[0.8rem] text-muted-foreground">
+                Created: {new Date(quest.created_at).toLocaleString()}
+              </p>
+              <p className="font-pixel text-[0.8rem] text-muted-foreground">
+                Updated: {new Date(quest.updated_at).toLocaleString()}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button variant="quest" size="xl" className="flex-1">
+            <Shield className="w-5 h-5 mr-2" strokeWidth={3} />
+            MAKE AN OFFER
+          </Button>
+          <Button variant="gold" size="xl" className="flex-1">
+            <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
+            INSTANT ACCEPT
+          </Button>
         </div>
-
-        {/* Action Button */}
-        {quest.status === 'open' && !quest.runner && (
-          <div className="mb-4">
-            <Button variant="quest" size="xl" className="w-full">
-              <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
-              ACCEPT QUEST
-            </Button>
-          </div>
-        )}
-        
-        {quest.status === 'in_progress' && quest.runner && (
-          <div className="mb-4">
-            <Card className="border-4 border-warning/50 bg-warning/10">
-              <CardContent className="p-3">
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-warning" strokeWidth={3} />
-                  <div>
-                    <p className="font-pixel text-pixel-sm text-warning">QUEST IN PROGRESS</p>
-                    <p className="font-pixel-body text-[0.9rem] text-muted-foreground">
-                      Being completed by {quest.runner.name}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {quest.status === 'completed' && (
-          <div className="mb-4">
-            <Card className="border-4 border-success/50 bg-success/10">
-              <CardContent className="p-3">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-success" strokeWidth={3} />
-                  <div>
-                    <p className="font-pixel text-pixel-sm text-success">QUEST COMPLETED</p>
-                    <p className="font-pixel-body text-[0.9rem] text-muted-foreground">
-                      This quest has been successfully completed
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
       </main>
     </PixelContainer>
   );

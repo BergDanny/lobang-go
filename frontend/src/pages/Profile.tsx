@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { User, Award, History, CreditCard, Star, Sword, Shield, Zap, Target } from "lucide-react";
+import { Award, History, Star, Sword, Zap, Target } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { StatsDisplay } from "@/components/StatsDisplay";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -49,7 +48,7 @@ const Profile = () => {
   return (
     <PixelContainer>
       <PixelHeader />
-      
+
       <main className="container mx-auto p-4 pb-8">
         {/* Hero Card */}
         <div className="rpg-frame-gold p-6 mb-6">
@@ -57,9 +56,9 @@ const Profile = () => {
             {/* Avatar */}
             <div className="relative">
               <div className="w-24 h-24 bg-forest border-4 border-border shadow-pixel overflow-hidden">
-                <img 
-                  src={heroSprite} 
-                  alt="Hero" 
+                <img
+                  src={heroSprite}
+                  alt="Hero"
                   className="w-full h-full object-cover"
                   style={{ imageRendering: 'pixelated' }}
                 />
@@ -68,22 +67,22 @@ const Profile = () => {
                 <span className="font-pixel text-[0.9rem] text-primary-foreground">LV{mockPlayer.level}</span>
               </div>
             </div>
-            
+
             {/* Player Info */}
             <div className="flex-1">
               <h1 className="font-pixel text-pixel-base sm:text-pixel-lg text-primary mb-1">{mockPlayer.name}</h1>
               <Badge variant="accent" className="mb-2 text-pixel-sm">{mockPlayer.title}</Badge>
               <p className="font-pixel-body text-pixel-lg text-muted-foreground">{mockPlayer.email}</p>
-              
+
               {/* Rating */}
               <div className="flex items-center gap-2 mt-3">
                 {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
+                  <Star
+                    key={i}
                     className={cn(
                       "w-5 h-5",
-                      i < Math.floor(mockPlayer.ratingAsProvider) 
-                        ? "text-coin fill-coin" 
+                      i < Math.floor(mockPlayer.ratingAsProvider)
+                        ? "text-coin fill-coin"
                         : "text-muted"
                     )}
                   />
@@ -100,7 +99,7 @@ const Profile = () => {
               <span className="font-pixel text-[0.9rem] text-xp">{mockPlayer.xp} / {mockPlayer.maxXp} XP</span>
             </div>
             <div className="h-6 bg-muted border-4 border-border relative overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-gradient-to-r from-xp to-accent pixel-progress transition-all duration-500"
                 style={{ width: `${(mockPlayer.xp / mockPlayer.maxXp) * 100}%` }}
               />
