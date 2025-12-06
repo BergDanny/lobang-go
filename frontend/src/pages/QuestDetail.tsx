@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, MapPin, Coins, Zap, Clock, User, Swords, Shield, Star, Crown } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,7 +33,7 @@ const QuestDetail = () => {
     return (
       <PixelContainer>
         <PixelHeader />
-        <main className="container mx-auto p-4 pb-32">
+        <main className="container mx-auto p-4 pb-8">
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto bg-muted border-4 border-border mb-4 flex items-center justify-center animate-pulse">
               <Clock className="w-8 h-8 text-muted-foreground" />
@@ -44,7 +43,6 @@ const QuestDetail = () => {
             </p>
           </div>
         </main>
-        <PixelNav />
       </PixelContainer>
     );
   }
@@ -53,7 +51,7 @@ const QuestDetail = () => {
     return (
       <PixelContainer>
         <PixelHeader />
-        <main className="container mx-auto p-4 pb-32">
+        <main className="container mx-auto p-4 pb-8">
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto bg-destructive/20 border-4 border-destructive mb-4 flex items-center justify-center">
               <Clock className="w-8 h-8 text-destructive" />
@@ -66,7 +64,6 @@ const QuestDetail = () => {
             </Button>
           </div>
         </main>
-        <PixelNav />
       </PixelContainer>
     );
   }
@@ -82,7 +79,7 @@ const QuestDetail = () => {
     <PixelContainer>
       <PixelHeader />
       
-      <main className="container mx-auto p-4 pb-24">
+      <main className="container mx-auto p-4 pb-8">
         {/* Back Button */}
         <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
           <ArrowLeft className="w-6 h-6" strokeWidth={3} />
@@ -211,7 +208,6 @@ const QuestDetail = () => {
         </div>
       </main>
 
-      <PixelNav />
     </PixelContainer>
   );
 };
