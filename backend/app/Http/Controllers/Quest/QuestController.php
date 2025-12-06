@@ -41,6 +41,7 @@ class QuestController extends BaseController
                 'location_from' => 'nullable|string|max:255',
                 'location_to' => 'required|string|max:255',
                 'bounty' => 'required|numeric|min:1',
+                'deadline' => 'required|dateTime',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 
@@ -53,6 +54,7 @@ class QuestController extends BaseController
                 'location_from' => $validated['location_from'],
                 'location_to' => $validated['location_to'],
                 'bounty' => $validated['bounty'],
+                'deadline' => $validated['deadline'],
                 'status' => $validated['status'] ?? 'open',
                 'poster_id' => $request->user()->id,
                 // 'runner_id' => null,
@@ -126,6 +128,7 @@ class QuestController extends BaseController
                 'location_from' => 'sometimes|string|max:255',
                 'location_to' => 'sometimes|string|max:255',
                 'bounty' => 'sometimes|numeric|min:1',
+                'deadline' => 'sometimes|dateTime',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 

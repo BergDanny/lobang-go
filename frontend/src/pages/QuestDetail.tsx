@@ -1,11 +1,20 @@
-import { useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useQuestStore } from '../store/questStore';
+import { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, MapPin, Coins, Zap, Clock, User, Swords, Shield, Star, Crown } from "lucide-react";
+import { PixelContainer } from "@/components/PixelContainer";
+import { PixelHeader } from "@/components/PixelHeader";
+import { PixelNav } from "@/components/PixelNav";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { useQuestStore } from "@/store/questStore";
+import { formatTime, formatDateTime } from "@/lib/time-utils";
 
-export default function QuestDetail() {
-  const { id } = useParams<{ id: string }>();
+const QuestDetail = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { currentQuest, fetchQuestById, isLoading, error, deleteQuest } = useQuestStore();
+  const { currentQuest, isLoading, error, fetchQuestById } = useQuestStore();
 
   useEffect(() => {
     if (id) {
@@ -13,144 +22,198 @@ export default function QuestDetail() {
     }
   }, [id, fetchQuestById]);
 
-  const handleDelete = async () => {
-    if (!id) return;
-    if (window.confirm('Are you sure you want to delete this quest?')) {
-      try {
-        await deleteQuest(id);
-        navigate('/quests');
-      } catch (err) {
-        console.error('Delete error:', err);
-      }
-    }
+  // Calculate XP and difficulty from bounty
+  const calculateXP = (bounty: number) => Math.round(bounty * 10);
+  const calculateDifficulty = (bounty: number) => {
+    if (bounty < 5) return "Easy";
+    if (bounty < 10) return "Medium";
+    return "Hard";
   };
 
   if (isLoading) {
     return (
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-        <div style={{ textAlign: 'center', padding: '40px' }}>
-          <p>Loading quest...</p>
-        </div>
-      </div>
+      <PixelContainer>
+        <PixelHeader />
+        <main className="container mx-auto p-4 pb-24">
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto bg-muted border-4 border-border mb-4 flex items-center justify-center animate-pulse">
+              <Clock className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <p className="font-pixel text-pixel-xs text-muted-foreground">
+              LOADING QUEST...
+            </p>
+          </div>
+        </main>
+        <PixelNav />
+      </PixelContainer>
     );
   }
 
   if (error || !currentQuest) {
     return (
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-        <div style={{ padding: '20px', border: '1px solid #fcc', borderRadius: '8px', background: '#fee' }}>
-          <h2>Error Loading Quest</h2>
-          <p><strong>Error:</strong> {error || 'Quest not found'}</p>
-          <Link to="/quests" style={{ color: '#007bff', textDecoration: 'none' }}>
-            ← Back to Quests
-          </Link>
-        </div>
-      </div>
+      <PixelContainer>
+        <PixelHeader />
+        <main className="container mx-auto p-4 pb-24">
+          <div className="text-center py-12">
+            <div className="w-16 h-16 mx-auto bg-destructive/20 border-4 border-destructive mb-4 flex items-center justify-center">
+              <Clock className="w-8 h-8 text-destructive" />
+            </div>
+            <p className="font-pixel text-pixel-xs text-destructive">
+              {error || "QUEST NOT FOUND"}
+            </p>
+            <Button onClick={() => navigate("/quests")} className="mt-4">
+              Back to Quest Board
+            </Button>
+          </div>
+        </main>
+        <PixelNav />
+      </PixelContainer>
     );
   }
 
+  const quest = currentQuest;
+  const xp = calculateXP(quest.bounty);
+  const difficulty = calculateDifficulty(quest.bounty);
+  const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" : 
+                        quest.category.toLowerCase() === "queue" ? "⏳" : 
+                        quest.category.toLowerCase() === "printing" ? "📄" : "✨";
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
-      <Link 
-        to="/quests" 
-        style={{ 
-          display: 'inline-block', 
-          marginBottom: '20px', 
-          color: '#007bff', 
-          textDecoration: 'none' 
-        }}
-      >
-        ← Back to Quests
-      </Link>
+    <PixelContainer>
+      <PixelHeader />
+      
+      <main className="container mx-auto p-4 pb-24">
+        {/* Back Button */}
+        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.5rem] text-muted-foreground hover:text-primary transition-colors">
+          <ArrowLeft className="w-4 h-4" strokeWidth={3} />
+          BACK TO QUEST BOARD
+        </Link>
 
-      <div style={{ padding: '30px', border: '1px solid #ddd', borderRadius: '8px', background: '#fff' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '20px' }}>
-          <h1 style={{ margin: 0 }}>{currentQuest.title}</h1>
-          <span style={{ 
-            padding: '6px 16px', 
-            background: currentQuest.status === 'open' ? '#28a745' : '#6c757d', 
-            color: 'white', 
-            borderRadius: '16px',
-            fontSize: '14px',
-            fontWeight: '500'
-          }}>
-            {currentQuest.status}
-          </span>
-        </div>
-
-        <p style={{ fontSize: '18px', color: '#666', lineHeight: '1.8', marginBottom: '30px' }}>
-          {currentQuest.description}
-        </p>
-
-        <div style={{ 
-          padding: '20px', 
-          background: '#f9f9f9', 
-          borderRadius: '8px', 
-          marginBottom: '30px' 
-        }}>
-          <h3 style={{ marginTop: 0, marginBottom: '15px' }}>Quest Details</h3>
-          <div style={{ display: 'grid', gap: '10px' }}>
-            {currentQuest.category && (
+        {/* Quest Header */}
+        <div className="rpg-frame-gold p-4 mb-6">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div className="flex items-start gap-3">
+              <div className="text-3xl">{categoryEmoji}</div>
               <div>
-                <strong>Category:</strong> {currentQuest.category}
+                <Badge variant="forest" className="mb-2">{quest.category}</Badge>
+                <h1 className="font-pixel text-pixel-xs sm:text-pixel-sm leading-relaxed text-foreground">
+                  {quest.title}
+                </h1>
               </div>
-            )}
-            {currentQuest.location_from && (
-              <div>
-                <strong>From:</strong> {currentQuest.location_from}
-              </div>
-            )}
-            {currentQuest.location_to && (
-              <div>
-                <strong>To:</strong> {currentQuest.location_to}
-              </div>
-            )}
-            {currentQuest.price && (
-              <div>
-                <strong>Price:</strong> ${currentQuest.price}
-              </div>
-            )}
-            <div>
-              <strong>Created:</strong> {new Date(currentQuest.created_at).toLocaleDateString()}
             </div>
+            <Badge variant="warning">{difficulty}</Badge>
           </div>
+          
+          {/* Quest Poster */}
+          {quest.poster && (
+            <div className="flex items-center gap-3 p-3 bg-background/50 border-2 border-border">
+              <div className="w-12 h-12 bg-forest border-4 border-border flex items-center justify-center">
+                <span className="font-pixel text-[0.5rem] text-foreground">👤</span>
+              </div>
+              <div className="flex-1">
+                <p className="font-pixel text-[0.5rem] text-primary">{quest.poster.name}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge variant="xp" className="text-[0.4rem]">POSTER</Badge>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                  {formatDateTime(quest.created_at)}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
-        {currentQuest.poster && (
-          <div style={{ marginBottom: '30px', padding: '15px', background: '#f0f0f0', borderRadius: '8px' }}>
-            <strong>Posted by:</strong> {currentQuest.poster.name} ({currentQuest.poster.email})
-          </div>
-        )}
+        {/* Quest Details */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>📜 QUEST DETAILS</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="font-pixel-body text-pixel-lg leading-relaxed">{quest.description}</p>
+            
+            <div className="grid gap-4 sm:grid-cols-2">
+              {quest.location_from && (
+                <div className="flex items-center gap-3 p-3 bg-forest/20 border-4 border-forest/50">
+                  <MapPin className="w-5 h-5 text-forest-light" strokeWidth={3} />
+                  <div>
+                    <p className="font-pixel text-[0.4rem] text-muted-foreground">PICKUP</p>
+                    <p className="font-pixel-body text-pixel-base">{quest.location_from}</p>
+                  </div>
+                </div>
+              )}
+              <div className="flex items-center gap-3 p-3 bg-success/20 border-4 border-success/50">
+                <MapPin className="w-5 h-5 text-success" strokeWidth={3} />
+                <div>
+                  <p className="font-pixel text-[0.4rem] text-muted-foreground">DELIVER TO</p>
+                  <p className="font-pixel-body text-pixel-base">{quest.location_to}</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Rewards */}
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 p-3 bg-primary/20 border-4 border-primary/50">
+                <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
+                <span className="font-pixel text-pixel-xs text-primary">RM {quest.bounty.toFixed(2)}</span>
+              </div>
+              <div className="flex items-center gap-2 p-3 bg-xp/20 border-4 border-xp/50">
+                <Zap className="w-5 h-5 text-xp" strokeWidth={3} />
+                <span className="font-pixel text-pixel-xs text-xp">+{xp} XP</span>
+              </div>
+              <div className="flex items-center gap-2 p-3 bg-destructive/20 border-4 border-destructive/50">
+                <Clock className="w-5 h-5 text-destructive" strokeWidth={3} />
+                <span className="font-pixel text-pixel-xs text-destructive">DUE: {formatTime(quest.deadline)}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <Link 
-            to={`/quests/${currentQuest.id}/edit`}
-            style={{ 
-              padding: '10px 20px', 
-              background: '#007bff', 
-              color: 'white', 
-              textDecoration: 'none', 
-              borderRadius: '4px' 
-            }}
-          >
-            Edit
-          </Link>
-          <button
-            onClick={handleDelete}
-            style={{ 
-              padding: '10px 20px', 
-              background: '#dc3545', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Delete
-          </button>
+        {/* Quest Status */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>📊 QUEST STATUS</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <Badge variant={quest.status === "open" ? "success" : quest.status === "in_progress" ? "warning" : "default"}>
+                {quest.status.toUpperCase()}
+              </Badge>
+              {quest.runner && (
+                <div className="flex items-center gap-2">
+                  <span className="font-pixel text-[0.5rem] text-muted-foreground">RUNNER:</span>
+                  <span className="font-pixel text-[0.5rem] text-primary">{quest.runner.name}</span>
+                </div>
+              )}
+            </div>
+            <div className="mt-4 space-y-2">
+              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                Created: {formatDateTime(quest.created_at)}
+              </p>
+              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                Updated: {formatDateTime(quest.updated_at)}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button variant="quest" size="xl" className="flex-1">
+            <Shield className="w-5 h-5 mr-2" strokeWidth={3} />
+            MAKE AN OFFER
+          </Button>
+          <Button variant="gold" size="xl" className="flex-1">
+            <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
+            INSTANT ACCEPT
+          </Button>
         </div>
-      </div>
-    </div>
+      </main>
+
+      <PixelNav />
+    </PixelContainer>
   );
-}
+};
 
+export default QuestDetail;
