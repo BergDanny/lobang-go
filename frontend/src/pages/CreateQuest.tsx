@@ -12,7 +12,7 @@ export default function CreateQuest() {
     category: '',
     location_from: '',
     location_to: '',
-    price: '',
+    bounty: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,7 +21,7 @@ export default function CreateQuest() {
     try {
       await createQuest({
         ...formData,
-        price: formData.price ? parseFloat(formData.price) : undefined,
+        bounty: formData.bounty ? parseFloat(formData.bounty) : undefined,
         status: 'open',
       });
       navigate('/quests');
@@ -78,12 +78,12 @@ export default function CreateQuest() {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Price</label>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Bounty</label>
             <input
               type="number"
               step="0.01"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+              value={formData.bounty}
+              onChange={(e) => setFormData({ ...formData, bounty: e.target.value })}
               style={{ width: '100%', padding: '12px', boxSizing: 'border-box', border: '1px solid #ddd', borderRadius: '4px', fontSize: '16px' }}
               placeholder="0.00"
             />

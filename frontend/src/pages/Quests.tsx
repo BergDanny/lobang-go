@@ -103,7 +103,7 @@ export default function Quests() {
                 {quest.category && <span><strong>Category:</strong> {quest.category}</span>}
                 {quest.location_from && <span><strong>From:</strong> {quest.location_from}</span>}
                 {quest.location_to && <span><strong>To:</strong> {quest.location_to}</span>}
-                {quest.price && <span><strong>Price:</strong> ${quest.price}</span>}
+                {quest.bounty && <span><strong>Bounty:</strong> ${quest.bounty}</span>}
               </div>
               {quest.poster && (
                 <p style={{ margin: '15px 0 0 0', fontSize: '14px', color: '#666' }}>

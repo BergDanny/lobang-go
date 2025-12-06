@@ -76,7 +76,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: '15px', fontSize: '14px', color: '#888' }}>
                   <span><strong>Status:</strong> {quest.status}</span>
                   {quest.category && <span><strong>Category:</strong> {quest.category}</span>}
-                  {quest.price && <span><strong>Price:</strong> ${quest.price}</span>}
+                  {quest.bounty && <span><strong>Bounty:</strong> ${quest.bounty}</span>}
                 </div>
               </Link>
             ))}

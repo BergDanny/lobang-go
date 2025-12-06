@@ -105,9 +105,9 @@ export default function QuestDetail() {
                 <strong>To:</strong> {currentQuest.location_to}
               </div>
             )}
-            {currentQuest.price && (
+            {currentQuest.bounty && (
               <div>
-                <strong>Price:</strong> ${currentQuest.price}
+                <strong>Bounty:</strong> ${currentQuest.bounty}
               </div>
             )}
             <div>

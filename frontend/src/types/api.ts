@@ -46,7 +46,7 @@ export interface Quest {
   category: string;
   location_from: string;
   location_to: string;
-  price: number;
+  bounty: number;
   status: string;
   poster_id: string; // UUID
   runner_id?: string | null; // UUID
