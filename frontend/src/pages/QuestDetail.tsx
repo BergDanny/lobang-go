@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Shield, Info, Calendar } from "lucide-react";
+import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Info, Calendar } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,13 @@ const QuestDetail = () => {
 
   // Calculate XP from bounty
   const calculateXP = (bounty: number) => Math.round(bounty * 10);
+
+  // Calculate difficulty based on bounty
+  const calculateDifficulty = (bounty: number): string => {
+    if (bounty < 5) return "Easy";
+    if (bounty < 10) return "Medium";
+    return "Hard";
+  };
 
   if (isLoading) {
     return (
@@ -65,6 +72,7 @@ const QuestDetail = () => {
   const quest = currentQuest;
   const bountyValue = typeof quest.bounty === 'number' ? quest.bounty : parseFloat(String(quest.bounty || 0));
   const xp = calculateXP(bountyValue);
+  const difficulty = calculateDifficulty(bountyValue);
   const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" :
     quest.category.toLowerCase() === "queue" ? "⏳" :
       quest.category.toLowerCase() === "printing" ? "📄" : "✨";

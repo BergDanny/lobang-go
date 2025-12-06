@@ -1,10 +1,29 @@
 import axios from "axios";
 
 // Get base URL from environment variable
-// Normalize to use localhost instead of 127.0.0.1 to avoid CORS issues
-const baseURL = (
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1"
-).replace("127.0.0.1", "localhost");
+// In production, VITE_API_BASE_URL must be set
+// In development, fallback to localhost if not set
+const getBaseURL = () => {
+  const envURL = import.meta.env.VITE_API_BASE_URL;
+  
+  if (envURL) {
+    // Normalize to use localhost instead of 127.0.0.1 to avoid CORS issues
+    return envURL.replace("127.0.0.1", "localhost");
+  }
+  
+  // Only use localhost fallback in development mode
+  if (import.meta.env.DEV) {
+    return "http://localhost:8000/api/v1";
+  }
+  
+  // In production, throw error if URL is not set
+  throw new Error(
+    "VITE_API_BASE_URL environment variable is required in production. " +
+    "Please set it in your deployment environment."
+  );
+};
+
+const baseURL = getBaseURL();
 
 // Create axios instance
 // Note: withCredentials is not needed for Bearer token authentication
