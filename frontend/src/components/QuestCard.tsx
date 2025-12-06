@@ -104,7 +104,7 @@ export const QuestCard = ({
         <Link to={`/quest/${id}`} className="w-full">
           <Button variant="quest" className="w-full group-hover:bg-forest-light">
             <Sword className="w-4 h-4 mr-2" strokeWidth={3} />
-            ACCEPT QUEST
+            Read Quest
           </Button>
         </Link>
       </CardFooter>
