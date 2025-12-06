@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('category');
-            $table->string('location_from');
+            $table->string('location_from')->nullable();
             $table->string('location_to');
-            $table->decimal('price', 10, 2);
+            $table->decimal('bounty', 10, 2);
             $table->string('status')->default('open');
             $table->foreignUuid('poster_id')->constrained('users');
-            $table->foreignUuid('runner_id')->constrained('users')->nullable();
+            $table->foreignUuid('runner_id')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Quest extends Model
 {
+    use HasUuids;
+
     protected $table = 'quests';
 
     protected $fillable = [
@@ -14,7 +17,7 @@ class Quest extends Model
         'category',
         'location_from',
         'location_to',
-        'price',
+        'bounty',
         'status',
         'poster_id',
         'runner_id',
