@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('location_from')->nullable();
             $table->string('location_to');
             $table->decimal('bounty', 10, 2);
-            $table->dateTime('deadline');
+            $table->datetime('deadline');
             $table->string('status')->default('open');
             $table->foreignUuid('poster_id')->constrained('users');
             $table->foreignUuid('runner_id')->nullable()->constrained('users');

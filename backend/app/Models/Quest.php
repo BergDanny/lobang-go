@@ -33,4 +33,11 @@ class Quest extends Model
     {
         return $this->belongsTo(User::class, 'runner_id');
     }
+
+    protected function casts(): array
+    {
+        return [
+            'deadline' => 'datetime',
+        ];
+    }
 }

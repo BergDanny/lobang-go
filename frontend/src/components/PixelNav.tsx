@@ -6,7 +6,7 @@ export const PixelNav = () => {
   const location = useLocation();
   
   const navItems = [
-    { path: "/", icon: Home, label: "HOME" },
+    { path: "/dashboard", icon: Home, label: "HOME" },
     { path: "/quests", icon: Compass, label: "QUESTS" },
     { path: "/post", icon: PlusSquare, label: "POST" },
     { path: "/profile", icon: User, label: "HERO" },

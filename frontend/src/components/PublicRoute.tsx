@@ -14,9 +14,9 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     initializeAuth();
   }, [initializeAuth]);
 
-  // If authenticated, redirect to quests page
+  // If authenticated, redirect to dashboard
   if (isAuthenticated) {
-    return <Navigate to="/quests" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
