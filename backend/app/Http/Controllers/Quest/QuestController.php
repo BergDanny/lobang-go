@@ -41,7 +41,7 @@ class QuestController extends BaseController
                 'location_from' => 'nullable|string|max:255',
                 'location_to' => 'required|string|max:255',
                 'bounty' => 'required|numeric|min:1',
-                'deadline' => 'required|dateTime',
+                'deadline' => 'required|date_format:Y-m-d H:i',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 
@@ -128,7 +128,7 @@ class QuestController extends BaseController
                 'location_from' => 'sometimes|string|max:255',
                 'location_to' => 'sometimes|string|max:255',
                 'bounty' => 'sometimes|numeric|min:1',
-                'deadline' => 'sometimes|dateTime',
+                'deadline' => 'sometimes|date_format:Y-m-d H:i',
                 'status' => 'sometimes|string|in:open,in_progress,completed,cancelled',
             ]);
 
