@@ -51,7 +51,7 @@ const Profile = () => {
     <PixelContainer>
       <PixelHeader />
       
-      <main className="container mx-auto p-4 pb-24">
+      <main className="container mx-auto p-4 pb-32">
         {/* Hero Card */}
         <div className="rpg-frame-gold p-6 mb-6">
           <div className="flex items-start gap-4">
@@ -66,15 +66,15 @@ const Profile = () => {
                 />
               </div>
               <div className="absolute -bottom-2 -right-2 bg-primary border-2 border-border px-2 py-1">
-                <span className="font-pixel text-[0.5rem] text-primary-foreground">LV{mockPlayer.level}</span>
+                <span className="font-pixel text-[0.9rem] text-primary-foreground">LV{mockPlayer.level}</span>
               </div>
             </div>
             
             {/* Player Info */}
             <div className="flex-1">
-              <h1 className="font-pixel text-pixel-sm text-primary mb-1">{mockPlayer.name}</h1>
-              <Badge variant="accent" className="mb-2">{mockPlayer.title}</Badge>
-              <p className="font-pixel-body text-pixel-base text-muted-foreground">{mockPlayer.email}</p>
+              <h1 className="font-pixel text-pixel-base sm:text-pixel-lg text-primary mb-1">{mockPlayer.name}</h1>
+              <Badge variant="accent" className="mb-2 text-pixel-sm">{mockPlayer.title}</Badge>
+              <p className="font-pixel-body text-pixel-lg text-muted-foreground">{mockPlayer.email}</p>
               
               {/* Rating */}
               <div className="flex items-center gap-2 mt-3">
@@ -82,14 +82,14 @@ const Profile = () => {
                   <Star 
                     key={i} 
                     className={cn(
-                      "w-4 h-4",
+                      "w-5 h-5",
                       i < Math.floor(mockPlayer.ratingAsProvider) 
                         ? "text-coin fill-coin" 
                         : "text-muted"
                     )}
                   />
                 ))}
-                <span className="font-pixel text-[0.5rem] text-coin ml-1">{mockPlayer.ratingAsProvider}</span>
+                <span className="font-pixel text-[0.9rem] text-coin ml-1">{mockPlayer.ratingAsProvider}</span>
               </div>
             </div>
           </div>
@@ -97,8 +97,8 @@ const Profile = () => {
           {/* XP Bar */}
           <div className="mt-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-pixel text-[0.5rem] text-muted-foreground">EXPERIENCE</span>
-              <span className="font-pixel text-[0.5rem] text-xp">{mockPlayer.xp} / {mockPlayer.maxXp} XP</span>
+              <span className="font-pixel text-[0.9rem] text-muted-foreground">EXPERIENCE</span>
+              <span className="font-pixel text-[0.9rem] text-xp">{mockPlayer.xp} / {mockPlayer.maxXp} XP</span>
             </div>
             <div className="h-6 bg-muted border-4 border-border relative overflow-hidden">
               <div 
@@ -106,7 +106,7 @@ const Profile = () => {
                 style={{ width: `${(mockPlayer.xp / mockPlayer.maxXp) * 100}%` }}
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-pixel text-[0.4rem] text-foreground drop-shadow-lg">
+                <span className="font-pixel text-[0.8rem] text-foreground drop-shadow-lg">
                   {Math.round((mockPlayer.xp / mockPlayer.maxXp) * 100)}%
                 </span>
               </div>
@@ -121,22 +121,22 @@ const Profile = () => {
               <img src={goldCoin} alt="Credits" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
             </div>
             <p className="font-pixel text-pixel-sm text-primary">RM {mockPlayer.credits.toFixed(0)}</p>
-            <p className="font-pixel text-[0.4rem] text-muted-foreground">CREDITS</p>
+            <p className="font-pixel text-[0.8rem] text-muted-foreground">CREDITS</p>
           </Card>
           <Card className="p-4 text-center">
-            <Sword className="w-8 h-8 mx-auto mb-2 text-success" strokeWidth={3} />
-            <p className="font-pixel text-pixel-sm text-success">{mockPlayer.questsCompleted}</p>
-            <p className="font-pixel text-[0.4rem] text-muted-foreground">COMPLETED</p>
+            <Sword className="w-10 h-10 mx-auto mb-2 text-success" strokeWidth={3} />
+            <p className="font-pixel text-pixel-base text-success">{mockPlayer.questsCompleted}</p>
+            <p className="font-pixel text-[0.8rem] text-muted-foreground">COMPLETED</p>
           </Card>
           <Card className="p-4 text-center">
-            <Target className="w-8 h-8 mx-auto mb-2 text-accent" strokeWidth={3} />
-            <p className="font-pixel text-pixel-sm text-accent">{mockPlayer.questsPosted}</p>
-            <p className="font-pixel text-[0.4rem] text-muted-foreground">POSTED</p>
+            <Target className="w-10 h-10 mx-auto mb-2 text-accent" strokeWidth={3} />
+            <p className="font-pixel text-pixel-base text-accent">{mockPlayer.questsPosted}</p>
+            <p className="font-pixel text-[0.8rem] text-muted-foreground">POSTED</p>
           </Card>
           <Card className="p-4 text-center">
-            <Zap className="w-8 h-8 mx-auto mb-2 text-xp" strokeWidth={3} />
-            <p className="font-pixel text-pixel-sm text-xp">{mockPlayer.xp}</p>
-            <p className="font-pixel text-[0.4rem] text-muted-foreground">TOTAL XP</p>
+            <Zap className="w-10 h-10 mx-auto mb-2 text-xp" strokeWidth={3} />
+            <p className="font-pixel text-pixel-base text-xp">{mockPlayer.xp}</p>
+            <p className="font-pixel text-[0.8rem] text-muted-foreground">TOTAL XP</p>
           </Card>
         </div>
 
@@ -146,7 +146,7 @@ const Profile = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img src={treasureChest} alt="Top Up" className="w-8 h-8" style={{ imageRendering: 'pixelated' }} />
-                <CardTitle>💰 TOP UP CREDITS</CardTitle>
+                <CardTitle className="text-pixel-lg">💰 TOP UP CREDITS</CardTitle>
               </div>
               <Button
                 variant={showTopUp ? "outline" : "gold"}
@@ -188,8 +188,8 @@ const Profile = () => {
         <Card className="mb-6">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-coin" strokeWidth={3} />
-              <CardTitle>🏆 ACHIEVEMENTS</CardTitle>
+              <Award className="w-6 h-6 text-coin" strokeWidth={3} />
+              <CardTitle className="text-pixel-lg">🏆 ACHIEVEMENTS</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -204,8 +204,8 @@ const Profile = () => {
                       : "bg-muted/50 opacity-50"
                   )}
                 >
-                  <span className="text-2xl mb-1">{achievement.emoji}</span>
-                  <span className="font-pixel text-[0.3rem] text-center text-muted-foreground">
+                  <span className="text-3xl mb-1">{achievement.emoji}</span>
+                  <span className="font-pixel text-[0.7rem] text-center text-muted-foreground">
                     {achievement.name}
                   </span>
                 </div>
@@ -218,8 +218,8 @@ const Profile = () => {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <History className="w-5 h-5 text-accent" strokeWidth={3} />
-              <CardTitle>📜 TRANSACTION LOG</CardTitle>
+              <History className="w-6 h-6 text-accent" strokeWidth={3} />
+              <CardTitle className="text-pixel-lg">📜 TRANSACTION LOG</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="p-0">
@@ -233,17 +233,17 @@ const Profile = () => {
                     "w-10 h-10 border-4 border-border flex items-center justify-center",
                     tx.type === "deposit" ? "bg-success" : tx.type === "refund" ? "bg-warning" : "bg-destructive"
                   )}>
-                    <span className="font-pixel text-[0.5rem]">
+                    <span className="font-pixel text-[0.9rem]">
                       {tx.type === "deposit" ? "+" : tx.type === "refund" ? "↩" : "-"}
                     </span>
                   </div>
                   <div>
-                    <p className="font-pixel text-[0.5rem]">{tx.description}</p>
-                    <p className="font-pixel-body text-pixel-sm text-muted-foreground">{tx.date}</p>
+                    <p className="font-pixel text-[0.9rem]">{tx.description}</p>
+                    <p className="font-pixel-body text-pixel-lg text-muted-foreground">{tx.date}</p>
                   </div>
                 </div>
                 <span className={cn(
-                  "font-pixel text-pixel-xs",
+                  "font-pixel text-pixel-base",
                   tx.amount > 0 ? "text-success" : "text-destructive"
                 )}>
                   {tx.amount > 0 ? "+" : ""}RM {Math.abs(tx.amount).toFixed(2)}
