@@ -44,14 +44,15 @@ export interface Quest {
   title: string;
   description: string;
   category: string;
-  location_from: string;
+  location_from: string | null;
   location_to: string;
   bounty: number;
+  deadline: string; // ISO datetime string
   status: string;
   poster_id: string; // UUID
   runner_id?: string | null; // UUID
-  created_at: string;
-  updated_at: string;
+  created_at: string; // ISO datetime string
+  updated_at: string; // ISO datetime string
   poster?: User;
   runner?: User;
 }

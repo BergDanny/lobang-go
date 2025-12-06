@@ -1,44 +1,35 @@
-import { Routes, Route } from 'react-router-dom';
-import ProtectedRoute from '../components/ProtectedRoute';
-import PublicRoute from '../components/PublicRoute';
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Quests from '../pages/Quests';
-import QuestDetail from '../pages/QuestDetail';
-import CreateQuest from '../pages/CreateQuest';
-import NotFound from '../pages/NotFound';
+import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "../components/ProtectedRoute";
+import PublicRoute from "../components/PublicRoute";
+import AuthPage from "../pages/Auth/AuthPage";
+import Quests from "../pages/Quests";
+import QuestDetail from "../pages/QuestDetail";
+import PostQuest from "../pages/PostQuest";
+import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes - redirect to home if already authenticated */}
+      {/* Public routes - redirect to quests if already authenticated */}
       <Route
         path="/login"
         element={
           <PublicRoute>
-            <Login />
+            <AuthPage />
           </PublicRoute>
         }
       />
       <Route
-        path="/register"
+        path="/"
         element={
           <PublicRoute>
-            <Register />
+            <AuthPage />
           </PublicRoute>
         }
       />
 
-      {/* Protected routes */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
+      {/* Protected routes - require authentication */}
       <Route
         path="/quests"
         element={
@@ -48,18 +39,26 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/quests/create"
+        path="/quest/:id"
         element={
           <ProtectedRoute>
-            <CreateQuest />
+            <QuestDetail />
           </ProtectedRoute>
         }
       />
       <Route
-        path="/quests/:id"
+        path="/post"
         element={
           <ProtectedRoute>
-            <QuestDetail />
+            <PostQuest />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         }
       />

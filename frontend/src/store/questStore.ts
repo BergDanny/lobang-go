@@ -28,7 +28,11 @@ export const useQuestStore = create<QuestState>((set, get) => ({
       const quests = await questApi.getAll();
       set({ quests, isLoading: false, error: null });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Failed to fetch quests';
+      let errorMessage = error.response?.data?.message || error.message || 'Failed to fetch quests';
+      // Include status code for better error handling
+      if (error.response?.status === 401) {
+        errorMessage = `401 Unauthorized: ${errorMessage}`;
+      }
       set({ error: errorMessage, isLoading: false });
     }
   },
@@ -39,7 +43,11 @@ export const useQuestStore = create<QuestState>((set, get) => ({
       const quest = await questApi.getById(id);
       set({ currentQuest: quest, isLoading: false, error: null });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || error.message || 'Failed to fetch quest';
+      let errorMessage = error.response?.data?.message || error.message || 'Failed to fetch quest';
+      // Include status code for better error handling
+      if (error.response?.status === 401) {
+        errorMessage = `401 Unauthorized: ${errorMessage}`;
+      }
       set({ error: errorMessage, isLoading: false, currentQuest: null });
     }
   },

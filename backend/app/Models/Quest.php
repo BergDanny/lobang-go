@@ -18,6 +18,7 @@ class Quest extends Model
         'location_from',
         'location_to',
         'bounty',
+        'deadline',
         'status',
         'poster_id',
         'runner_id',
