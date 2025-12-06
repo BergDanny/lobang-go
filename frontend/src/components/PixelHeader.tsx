@@ -14,7 +14,7 @@ export const PixelHeader = () => {
   };
   
   const navItems = [
-    { path: "/", icon: Home, label: "HOME" },
+    { path: "/dashboard", icon: Home, label: "HOME" },
     { path: "/quests", icon: Scroll, label: "QUESTS" },
     { path: "/post", icon: PlusSquare, label: "POST" },
     { path: "/profile", icon: User, label: "HERO" },

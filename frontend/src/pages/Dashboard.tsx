@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
-import { PixelNav } from "@/components/PixelNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -89,7 +88,7 @@ const Dashboard = () => {
     <PixelContainer>
       <PixelHeader />
 
-      <main className="container mx-auto p-4 pb-32">
+      <main className="container mx-auto p-4 pb-8">
         {/* Page Title */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
@@ -312,8 +311,6 @@ const Dashboard = () => {
           </>
         )}
       </main>
-
-      <PixelNav />
     </PixelContainer>
   );
 };
