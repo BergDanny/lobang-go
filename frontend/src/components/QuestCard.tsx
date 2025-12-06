@@ -14,7 +14,7 @@ interface QuestCardProps {
   xp: number;
   category: string;
   deadline: string;
-  status: "open" | "assigned" | "completed";
+  status?: "open" | "assigned" | "completed";
   difficulty?: string;
 }
 
@@ -28,8 +28,6 @@ export const QuestCard = ({
   xp,
   category,
   deadline,
-  status,
-  difficulty = "Easy",
 }: QuestCardProps) => {
   const categoryStyles: Record<string, { variant: "default" | "success" | "warning" | "xp" | "forest" | "accent"; icon: any }> = {
     delivery: { variant: "forest", icon: "📦" },
@@ -51,12 +49,12 @@ export const QuestCard = ({
           </div>
         </div>
       </CardHeader>
-      
+
       <CardContent className="space-y-3">
         <p className="font-pixel-body text-pixel-lg text-muted-foreground line-clamp-2">
           {description}
         </p>
-        
+
         {/* Location */}
         <div className="flex items-center gap-2 p-2 bg-muted/50 border-2 border-border">
           <MapPin className="w-5 h-5 text-forest-light" strokeWidth={3} />
@@ -64,7 +62,7 @@ export const QuestCard = ({
           <ChevronRight className="w-5 h-5 text-muted-foreground" strokeWidth={3} />
           <span className="font-pixel-body text-pixel-base flex-1 truncate">{locationTo}</span>
         </div>
-        
+
         {/* Rewards Row */}
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-1 px-2 py-1 bg-primary/20 border-2 border-primary/50">
@@ -81,7 +79,7 @@ export const QuestCard = ({
           </div>
         </div>
       </CardContent>
-      
+
       <CardFooter>
         <Link to={`/quest/${id}`} className="w-full">
           <Button variant="quest" className="w-full group-hover:bg-forest-light">

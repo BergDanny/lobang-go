@@ -1,10 +1,10 @@
-import { Home, Scroll, PlusSquare, User, Compass } from "lucide-react";
+import { Home, PlusSquare, User, Compass } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 export const PixelNav = () => {
   const location = useLocation();
-  
+
   const navItems = [
     { path: "/dashboard", icon: Home, label: "HOME" },
     { path: "/quests", icon: Compass, label: "QUESTS" },
@@ -15,7 +15,7 @@ export const PixelNav = () => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-sm border-t-4 border-border z-50">
       <div className="flex items-center justify-around py-2">
-        {navItems.map(({ path, icon: Icon, label }, index) => (
+        {navItems.map(({ path, icon: Icon, label }) => (
           <Link
             key={path}
             to={path}

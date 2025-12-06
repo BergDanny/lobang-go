@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin, Coins, Zap, Clock, User, Swords, Shield, Star, Crown } from "lucide-react";
+import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Shield } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { useQuestStore } from "@/store/questStore";
-import { formatTime, formatDateTime } from "@/lib/time-utils";
+import { formatTime } from "@/lib/time-utils";
 
 const QuestDetail = () => {
   const { id } = useParams();
@@ -71,14 +70,14 @@ const QuestDetail = () => {
   const quest = currentQuest;
   const xp = calculateXP(quest.bounty);
   const difficulty = calculateDifficulty(quest.bounty);
-  const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" : 
-                        quest.category.toLowerCase() === "queue" ? "⏳" : 
-                        quest.category.toLowerCase() === "printing" ? "📄" : "✨";
+  const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" :
+    quest.category.toLowerCase() === "queue" ? "⏳" :
+      quest.category.toLowerCase() === "printing" ? "📄" : "✨";
 
   return (
     <PixelContainer>
       <PixelHeader />
-      
+
       <main className="container mx-auto p-4 pb-8">
         {/* Back Button */}
         <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
@@ -100,7 +99,7 @@ const QuestDetail = () => {
             </div>
             <Badge variant="warning">{difficulty}</Badge>
           </div>
-          
+
           {/* Quest Poster */}
           {quest.poster && (
             <div className="flex items-center gap-3 p-3 bg-background/50 border-2 border-border">
@@ -115,7 +114,7 @@ const QuestDetail = () => {
               </div>
               <div className="text-right">
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                  {formatDateTime(quest.created_at)}
+                  {new Date(quest.created_at).toLocaleString()}
                 </p>
               </div>
             </div>
@@ -129,7 +128,7 @@ const QuestDetail = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="font-pixel-body text-pixel-lg leading-relaxed">{quest.description}</p>
-            
+
             <div className="grid gap-4 sm:grid-cols-2">
               {quest.location_from && (
                 <div className="flex items-center gap-3 p-3 bg-forest/20 border-4 border-forest/50">
@@ -144,11 +143,11 @@ const QuestDetail = () => {
                 <MapPin className="w-6 h-6 text-success" strokeWidth={3} />
                 <div>
                   <p className="font-pixel text-[0.8rem] text-muted-foreground">DELIVER TO</p>
-                    <p className="font-pixel-body text-pixel-lg">{quest.location_to}</p>
+                  <p className="font-pixel-body text-pixel-lg">{quest.location_to}</p>
                 </div>
               </div>
             </div>
-            
+
             {/* Rewards */}
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 p-3 bg-primary/20 border-4 border-primary/50">
@@ -186,10 +185,10 @@ const QuestDetail = () => {
             </div>
             <div className="mt-4 space-y-2">
               <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                Created: {formatDateTime(quest.created_at)}
+                Created: {new Date(quest.created_at).toLocaleString()}
               </p>
               <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                Updated: {formatDateTime(quest.updated_at)}
+                Updated: {new Date(quest.updated_at).toLocaleString()}
               </p>
             </div>
           </CardContent>
