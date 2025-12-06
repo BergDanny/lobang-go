@@ -48,4 +48,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function postedQuests()
+    {
+        return $this->hasMany(Quest::class, 'poster_id');
+    }
+
+    public function takenQuests()
+    {
+        return $this->hasMany(Quest::class, 'runner_id');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Quest\QuestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ Route::prefix('v1')->group(function () {
         Route::prefix('auth')->controller(AuthController::class)->group(function () {
             Route::delete('/logout', 'logout');
         });
+
+        Route::apiResource('quests', QuestController::class);
     });
 });
