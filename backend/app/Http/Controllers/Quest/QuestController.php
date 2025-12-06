@@ -247,45 +247,4 @@ class QuestController extends BaseController
             return $this->sendError('Failed to get taken quests.', ['exception' => $e->getMessage()]);
         }
     }
-
-    public function taken_quest(Quest $quest)
-    {
-        try {
-            $user = auth()->user();
-
-            // Prevent users from taking their own quest
-            if ($quest->poster_id === $user->id) {
-                return $this->sendError('You cannot take your own quest.', [], 403);
-            }
-
-            // Prevent users from taking a quest already taken or not open
-            if ($quest->status !== 'open') {
-                return $this->sendError('Quest is not available to be taken.', [], 400);
-            }
-
-            // Prevent user from taking the same quest twice
-            if ($quest->runner_id !== null) {
-                if ($quest->runner_id === $user->id) {
-                    return $this->sendError('You have already taken this quest.', [], 400);
-                }
-                return $this->sendError('This quest has already been taken by another user.', [], 400);
-            }
-
-            DB::beginTransaction();
-
-            $quest->runner_id = $user->id;
-            $quest->status = 'in_progress';
-            $quest->save();
-
-            $quest->load(['poster', 'runner']);
-
-            DB::commit();
-
-            return $this->sendResponse($quest, 'Quest marked as taken successfully.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
-            return $this->sendError('Failed to take quest.', ['exception' => $e->getMessage()]);
-        }
-    }
 }
