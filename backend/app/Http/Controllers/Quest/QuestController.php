@@ -19,6 +19,7 @@ class QuestController extends BaseController
         try {
             $quests = Quest::with('poster')
                 ->where('status', 'open')
+                ->where('poster_id', '!=', request()->user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
 
