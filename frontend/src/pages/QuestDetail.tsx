@@ -34,12 +34,12 @@ const QuestDetail = () => {
     return (
       <PixelContainer>
         <PixelHeader />
-        <main className="container mx-auto p-4 pb-24">
+        <main className="container mx-auto p-4 pb-32">
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto bg-muted border-4 border-border mb-4 flex items-center justify-center animate-pulse">
               <Clock className="w-8 h-8 text-muted-foreground" />
             </div>
-            <p className="font-pixel text-pixel-xs text-muted-foreground">
+            <p className="font-pixel text-pixel-sm sm:text-pixel-base text-muted-foreground">
               LOADING QUEST...
             </p>
           </div>
@@ -53,12 +53,12 @@ const QuestDetail = () => {
     return (
       <PixelContainer>
         <PixelHeader />
-        <main className="container mx-auto p-4 pb-24">
+        <main className="container mx-auto p-4 pb-32">
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto bg-destructive/20 border-4 border-destructive mb-4 flex items-center justify-center">
               <Clock className="w-8 h-8 text-destructive" />
             </div>
-            <p className="font-pixel text-pixel-xs text-destructive">
+            <p className="font-pixel text-pixel-sm sm:text-pixel-base text-destructive">
               {error || "QUEST NOT FOUND"}
             </p>
             <Button onClick={() => navigate("/quests")} className="mt-4">
@@ -84,8 +84,8 @@ const QuestDetail = () => {
       
       <main className="container mx-auto p-4 pb-24">
         {/* Back Button */}
-        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground hover:text-primary transition-colors">
-          <ArrowLeft className="w-5 h-5" strokeWidth={3} />
+        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
+          <ArrowLeft className="w-6 h-6" strokeWidth={3} />
           BACK TO QUEST BOARD
         </Link>
 
@@ -96,7 +96,7 @@ const QuestDetail = () => {
               <div className="text-3xl">{categoryEmoji}</div>
               <div>
                 <Badge variant="forest" className="mb-2">{quest.category}</Badge>
-                <h1 className="font-pixel text-pixel-xs sm:text-pixel-sm leading-relaxed text-foreground">
+                <h1 className="font-pixel text-pixel-sm sm:text-pixel-base leading-relaxed text-foreground">
                   {quest.title}
                 </h1>
               </div>
@@ -108,16 +108,16 @@ const QuestDetail = () => {
           {quest.poster && (
             <div className="flex items-center gap-3 p-3 bg-background/50 border-2 border-border">
               <div className="w-12 h-12 bg-forest border-4 border-border flex items-center justify-center">
-                <span className="font-pixel text-[0.7rem] text-foreground">👤</span>
+                <span className="font-pixel text-[0.9rem] text-foreground">👤</span>
               </div>
               <div className="flex-1">
-                <p className="font-pixel text-[0.7rem] sm:text-[0.8rem] text-primary">{quest.poster.name}</p>
+                <p className="font-pixel text-[0.9rem] sm:text-[1rem] text-primary">{quest.poster.name}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant="xp" className="text-[0.6rem]">POSTER</Badge>
+                  <Badge variant="xp" className="text-[0.8rem]">POSTER</Badge>
                 </div>
               </div>
               <div className="text-right">
-                <p className="font-pixel text-[0.6rem] text-muted-foreground">
+                <p className="font-pixel text-[0.8rem] text-muted-foreground">
                   {formatDateTime(quest.created_at)}
                 </p>
               </div>
@@ -128,7 +128,7 @@ const QuestDetail = () => {
         {/* Quest Details */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>📜 QUEST DETAILS</CardTitle>
+            <CardTitle className="text-pixel-lg">📜 QUEST DETAILS</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="font-pixel-body text-pixel-lg leading-relaxed">{quest.description}</p>
@@ -138,16 +138,16 @@ const QuestDetail = () => {
                 <div className="flex items-center gap-3 p-3 bg-forest/20 border-4 border-forest/50">
                   <MapPin className="w-5 h-5 text-forest-light" strokeWidth={3} />
                   <div>
-                    <p className="font-pixel text-[0.6rem] text-muted-foreground">PICKUP</p>
-                    <p className="font-pixel-body text-pixel-base">{quest.location_from}</p>
+                    <p className="font-pixel text-[0.8rem] text-muted-foreground">PICKUP</p>
+                    <p className="font-pixel-body text-pixel-lg">{quest.location_from}</p>
                   </div>
                 </div>
               )}
               <div className="flex items-center gap-3 p-3 bg-success/20 border-4 border-success/50">
-                <MapPin className="w-5 h-5 text-success" strokeWidth={3} />
+                <MapPin className="w-6 h-6 text-success" strokeWidth={3} />
                 <div>
-                  <p className="font-pixel text-[0.6rem] text-muted-foreground">DELIVER TO</p>
-                  <p className="font-pixel-body text-pixel-base">{quest.location_to}</p>
+                  <p className="font-pixel text-[0.8rem] text-muted-foreground">DELIVER TO</p>
+                    <p className="font-pixel-body text-pixel-lg">{quest.location_to}</p>
                 </div>
               </div>
             </div>
@@ -156,15 +156,15 @@ const QuestDetail = () => {
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 p-3 bg-primary/20 border-4 border-primary/50">
                 <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
-                <span className="font-pixel text-pixel-xs text-primary">RM {quest.bounty.toFixed(2)}</span>
+                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">RM {quest.bounty.toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-2 p-3 bg-xp/20 border-4 border-xp/50">
-                <Zap className="w-5 h-5 text-xp" strokeWidth={3} />
-                <span className="font-pixel text-pixel-xs text-xp">+{xp} XP</span>
+                <Zap className="w-6 h-6 text-xp" strokeWidth={3} />
+                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-xp">+{xp} XP</span>
               </div>
               <div className="flex items-center gap-2 p-3 bg-destructive/20 border-4 border-destructive/50">
-                <Clock className="w-5 h-5 text-destructive" strokeWidth={3} />
-                <span className="font-pixel text-pixel-xs text-destructive">DUE: {formatTime(quest.deadline)}</span>
+                <Clock className="w-6 h-6 text-destructive" strokeWidth={3} />
+                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-destructive">DUE: {formatTime(quest.deadline)}</span>
               </div>
             </div>
           </CardContent>
@@ -173,7 +173,7 @@ const QuestDetail = () => {
         {/* Quest Status */}
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>📊 QUEST STATUS</CardTitle>
+            <CardTitle className="text-pixel-lg">📊 QUEST STATUS</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4">
@@ -182,16 +182,16 @@ const QuestDetail = () => {
               </Badge>
               {quest.runner && (
                 <div className="flex items-center gap-2">
-                  <span className="font-pixel text-[0.7rem] text-muted-foreground">RUNNER:</span>
-                  <span className="font-pixel text-[0.7rem] text-primary">{quest.runner.name}</span>
+                  <span className="font-pixel text-[0.9rem] text-muted-foreground">RUNNER:</span>
+                  <span className="font-pixel text-[0.9rem] text-primary">{quest.runner.name}</span>
                 </div>
               )}
             </div>
             <div className="mt-4 space-y-2">
-              <p className="font-pixel text-[0.6rem] text-muted-foreground">
+              <p className="font-pixel text-[0.8rem] text-muted-foreground">
                 Created: {formatDateTime(quest.created_at)}
               </p>
-              <p className="font-pixel text-[0.6rem] text-muted-foreground">
+              <p className="font-pixel text-[0.8rem] text-muted-foreground">
                 Updated: {formatDateTime(quest.updated_at)}
               </p>
             </div>

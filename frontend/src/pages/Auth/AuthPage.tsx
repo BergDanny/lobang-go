@@ -123,7 +123,7 @@ const AuthPage = () => {
 
           <div className="flex items-center justify-center gap-3 mb-2">
             <div className="w-6 h-1 bg-primary" />
-            <p className="font-pixel text-[0.5rem] text-muted-foreground tracking-widest">
+            <p className="font-pixel text-[0.8rem] sm:text-[0.9rem] text-muted-foreground tracking-widest">
               CAMPUS QUEST ADVENTURE
             </p>
             <div className="w-6 h-1 bg-primary" />
@@ -138,7 +138,7 @@ const AuthPage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="rpg-frame-gold p-6 space-y-6">
             <div className="text-center border-b-4 border-border pb-4">
-              <h2 className="font-pixel text-pixel-xs text-primary">
+              <h2 className="font-pixel text-pixel-base sm:text-pixel-lg text-primary">
                 ⚔️ ADVENTURER LOGIN ⚔️
               </h2>
             </div>
@@ -146,7 +146,7 @@ const AuthPage = () => {
             {/* Backend Error Message */}
             {error && !errors.email && !errors.password && (
               <div className="p-3 bg-destructive/20 border-4 border-destructive">
-                <p className="font-pixel text-[0.5rem] text-destructive text-center">
+                <p className="font-pixel text-[0.8rem] sm:text-[0.9rem] text-destructive text-center">
                   {error}
                 </p>
               </div>
@@ -154,34 +154,34 @@ const AuthPage = () => {
 
             <div className="space-y-4">
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">
+                <label className="block font-pixel text-[0.9rem] sm:text-[1rem] mb-2 text-muted-foreground">
                   EMAIL
                 </label>
                 <Input
                   type="email"
                   placeholder="hero@campus.edu"
                   {...register("email")}
-                  className={errors.email ? "border-destructive" : ""}
+                  className={`text-pixel-base ${errors.email ? "border-destructive" : ""}`}
                 />
                 {errors.email && (
-                  <p className="font-pixel text-[0.4rem] text-destructive mt-1">
+                  <p className="font-pixel text-[0.7rem] text-destructive mt-1">
                     {errors.email.message}
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block font-pixel text-[0.5rem] mb-2 text-muted-foreground">
+                <label className="block font-pixel text-[0.9rem] sm:text-[1rem] mb-2 text-muted-foreground">
                   PASSWORD
                 </label>
                 <Input
                   type="password"
                   placeholder="••••••••"
                   {...register("password")}
-                  className={errors.password ? "border-destructive" : ""}
+                  className={`text-pixel-base ${errors.password ? "border-destructive" : ""}`}
                 />
                 {errors.password && (
-                  <p className="font-pixel text-[0.4rem] text-destructive mt-1">
+                  <p className="font-pixel text-[0.7rem] text-destructive mt-1">
                     {errors.password.message}
                   </p>
                 )}
@@ -203,7 +203,7 @@ const AuthPage = () => {
             <div className="text-center space-y-3">
               <div className="flex items-center gap-4">
                 <div className="flex-1 h-1 bg-border" />
-                <p className="font-pixel text-[0.4rem] text-muted-foreground">
+                <p className="font-pixel text-[0.7rem] text-muted-foreground">
                   NEW HERO?
                 </p>
                 <div className="flex-1 h-1 bg-border" />
@@ -224,28 +224,28 @@ const AuthPage = () => {
         <div className="mt-8 text-center">
           <div className="flex items-center justify-center gap-6 mb-4">
             <div className="text-center">
-              <p className="font-pixel text-pixel-sm text-primary">1,234</p>
-              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+              <p className="font-pixel text-pixel-base text-primary">1,234</p>
+              <p className="font-pixel text-[0.7rem] text-muted-foreground">
                 HEROES
               </p>
             </div>
             <div className="w-1 h-8 bg-border" />
             <div className="text-center">
-              <p className="font-pixel text-pixel-sm text-success">5,678</p>
-              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+              <p className="font-pixel text-pixel-base text-success">5,678</p>
+              <p className="font-pixel text-[0.7rem] text-muted-foreground">
                 QUESTS
               </p>
             </div>
             <div className="w-1 h-8 bg-border" />
             <div className="text-center">
-              <p className="font-pixel text-pixel-sm text-coin">RM 12K</p>
-              <p className="font-pixel text-[0.4rem] text-muted-foreground">
+              <p className="font-pixel text-pixel-base text-coin">RM 12K</p>
+              <p className="font-pixel text-[0.7rem] text-muted-foreground">
                 EARNED
               </p>
             </div>
           </div>
 
-          <p className="font-pixel text-[0.4rem] text-muted-foreground">
+          <p className="font-pixel text-[0.7rem] text-muted-foreground">
             © 2024 LOBANG GO • CAMPUS ADVENTURE
           </p>
         </div>

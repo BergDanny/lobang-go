@@ -24,11 +24,11 @@ export const PixelHeader = () => {
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-warning border-4 border-border flex items-center justify-center shadow-pixel-gold group-hover:animate-bounce-pixel">
-            <span className="font-pixel text-primary-foreground text-[0.7rem]">LG</span>
+            <span className="font-pixel text-primary-foreground text-[0.9rem]">LG</span>
           </div>
           <div className="hidden sm:block">
-            <span className="font-pixel text-pixel-sm text-primary">LOBANG GO</span>
-            <p className="font-pixel text-[0.6rem] text-muted-foreground">ADVENTURE MODE</p>
+            <span className="font-pixel text-pixel-base text-primary">LOBANG GO</span>
+            <p className="font-pixel text-[0.8rem] text-muted-foreground">ADVENTURE MODE</p>
           </div>
         </Link>
         
@@ -46,13 +46,13 @@ export const PixelHeader = () => {
               )}
             >
               <Icon className="w-5 h-5" strokeWidth={3} />
-              <span className="font-pixel text-[0.7rem] hidden sm:block">{label}</span>
+              <span className="font-pixel text-[0.9rem] hidden sm:block">{label}</span>
             </Link>
           ))}
           
           <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-primary/20 to-warning/20 border-4 border-primary/50 shadow-pixel-gold">
-            <img src={goldCoin} alt="Coins" className="w-6 h-6 animate-sparkle" style={{ imageRendering: 'pixelated' }} />
-            <span className="font-pixel text-[0.7rem] text-primary">RM 50</span>
+            <img src={goldCoin} alt="Coins" className="w-7 h-7 animate-sparkle" style={{ imageRendering: 'pixelated' }} />
+            <span className="font-pixel text-[0.9rem] text-primary">RM 50</span>
           </div>
           
           {isAuthenticated && (
@@ -65,8 +65,8 @@ export const PixelHeader = () => {
               )}
               title="Logout"
             >
-              <LogOut className="w-5 h-5" strokeWidth={3} />
-              <span className="font-pixel text-[0.7rem] hidden sm:block">LOGOUT</span>
+              <LogOut className="w-6 h-6" strokeWidth={3} />
+              <span className="font-pixel text-[0.9rem] hidden sm:block">LOGOUT</span>
             </button>
           )}
         </nav>

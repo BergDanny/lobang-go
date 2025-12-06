@@ -46,7 +46,7 @@ const Quests = () => {
     <PixelContainer>
       <PixelHeader />
 
-      <main className="container mx-auto p-4 pb-24">
+      <main className="container mx-auto p-4 pb-32">
         {/* Page Title */}
         <div className="flex items-center gap-4 mb-6">
           <img
@@ -56,10 +56,10 @@ const Quests = () => {
             style={{ imageRendering: "pixelated" }}
           />
           <div>
-            <h1 className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">
+            <h1 className="font-pixel text-pixel-base sm:text-pixel-lg text-primary">
               QUEST BOARD
             </h1>
-            <p className="font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground">
+            <p className="font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground">
               Choose your adventure wisely, hero
             </p>
           </div>
@@ -72,7 +72,7 @@ const Quests = () => {
               key={id}
               onClick={() => setActiveCategory(id)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 border-4 border-border font-pixel text-[0.7rem] sm:text-[0.8rem] transition-all",
+                "flex items-center gap-2 px-4 py-2 border-4 border-border font-pixel text-[0.9rem] sm:text-[1rem] transition-all",
                 "active:translate-x-1 active:translate-y-1 active:shadow-none",
                 activeCategory === id
                   ? "bg-forest text-foreground shadow-pixel"
@@ -91,7 +91,7 @@ const Quests = () => {
             <div className="w-16 h-16 mx-auto bg-muted border-4 border-border mb-4 flex items-center justify-center animate-pulse">
               <Compass className="w-8 h-8 text-muted-foreground" />
             </div>
-            <p className="font-pixel text-pixel-xs text-muted-foreground">
+            <p className="font-pixel text-pixel-sm sm:text-pixel-base text-muted-foreground">
               LOADING QUESTS...
             </p>
           </div>
@@ -107,12 +107,12 @@ const Quests = () => {
                 <Compass className="w-8 h-8 text-destructive" />
               )}
             </div>
-            <p className="font-pixel text-pixel-xs text-destructive">
+            <p className="font-pixel text-pixel-sm sm:text-pixel-base text-destructive">
               {error.includes("401") || error.includes("Unauthorized")
                 ? "AUTHENTICATION REQUIRED"
                 : "ERROR LOADING QUESTS"}
             </p>
-            <p className="font-pixel-body text-pixel-base text-muted-foreground mt-2">
+            <p className="font-pixel-body text-pixel-lg text-muted-foreground mt-2">
               {error.includes("401") || error.includes("Unauthorized")
                 ? "Please log in to view quests."
                 : error}
@@ -137,19 +137,19 @@ const Quests = () => {
                   strokeWidth={3}
                 />
                 <div>
-                  <p className="font-pixel text-pixel-xs text-primary">
+                  <p className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">
                     {filteredQuests.length} ACTIVE QUESTS
                   </p>
-                  <p className="font-pixel-body text-pixel-sm text-muted-foreground">
+                  <p className="font-pixel-body text-pixel-base text-muted-foreground">
                     Awaiting brave adventurers
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="font-pixel text-pixel-xs text-coin">
+                <p className="font-pixel text-pixel-sm sm:text-pixel-base text-coin">
                   +{filteredQuests.reduce((sum, q) => sum + q.xp, 0)} XP
                 </p>
-                <p className="font-pixel text-[0.6rem] text-muted-foreground">
+                <p className="font-pixel text-[0.8rem] text-muted-foreground">
                   TOTAL AVAILABLE
                 </p>
               </div>
@@ -177,10 +177,10 @@ const Quests = () => {
             <div className="w-16 h-16 mx-auto bg-muted border-4 border-border mb-4 flex items-center justify-center">
               <Compass className="w-8 h-8 text-muted-foreground" />
             </div>
-            <p className="font-pixel text-pixel-xs text-muted-foreground">
+            <p className="font-pixel text-pixel-sm sm:text-pixel-base text-muted-foreground">
               NO QUESTS FOUND
             </p>
-            <p className="font-pixel-body text-pixel-base text-muted-foreground mt-2">
+            <p className="font-pixel-body text-pixel-lg text-muted-foreground mt-2">
               Check back later for new adventures
             </p>
           </div>

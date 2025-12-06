@@ -99,7 +99,7 @@ const PostQuest = () => {
       
       <main className="container mx-auto p-4 pb-32">
         {/* Back Button */}
-        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.7rem] sm:text-[0.8rem] text-muted-foreground hover:text-primary transition-colors">
+        <Link to="/quests" className="inline-flex items-center gap-2 mb-6 font-pixel text-[0.9rem] sm:text-[1rem] text-muted-foreground hover:text-primary transition-colors">
           <ArrowLeft className="w-5 h-5" strokeWidth={3} />
           BACK TO QUEST BOARD
         </Link>

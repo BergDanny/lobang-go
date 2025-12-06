@@ -165,7 +165,7 @@ const Profile = () => {
                     key={amount}
                     onClick={() => setSelectedAmount(amount)}
                     className={cn(
-                      "p-4 border-4 border-border font-pixel text-pixel-xs transition-all",
+                      "p-4 border-4 border-border font-pixel text-pixel-sm transition-all",
                       "active:translate-x-1 active:translate-y-1 active:shadow-none",
                       selectedAmount === amount
                         ? "bg-primary text-primary-foreground shadow-pixel-gold"
@@ -205,7 +205,7 @@ const Profile = () => {
                   )}
                 >
                   <span className="text-3xl mb-1">{achievement.emoji}</span>
-                  <span className="font-pixel text-[0.7rem] text-center text-muted-foreground">
+                  <span className="font-pixel text-[0.9rem] text-center text-muted-foreground">
                     {achievement.name}
                   </span>
                 </div>

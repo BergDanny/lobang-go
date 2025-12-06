@@ -33,7 +33,7 @@ export const PixelNav = () => {
               <Icon className="w-6 h-6" strokeWidth={3} />
             </div>
             <span className={cn(
-              "font-pixel text-[0.7rem] sm:text-[0.8rem]",
+              "font-pixel text-[0.9rem] sm:text-[1rem]",
               location.pathname === path ? "text-primary" : "text-muted-foreground"
             )}>{label}</span>
           </Link>

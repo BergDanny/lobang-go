@@ -55,8 +55,8 @@ export const QuestCard = ({
           "flex items-center gap-1 px-2 py-1 bg-background/80 border-2 border-border",
           difficultyColors[difficulty.toLowerCase()]
         )}>
-          <Star className="w-4 h-4" fill="currentColor" strokeWidth={0} />
-          <span className="font-pixel text-[0.6rem]">{difficulty.toUpperCase()}</span>
+          <Star className="w-5 h-5" fill="currentColor" strokeWidth={0} />
+          <span className="font-pixel text-[0.8rem]">{difficulty.toUpperCase()}</span>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ export const QuestCard = ({
           <div className="text-3xl">{icon}</div>
           <div className="flex-1">
             <Badge variant={variant} className="mb-2">{category}</Badge>
-            <CardTitle className="text-foreground leading-relaxed text-[0.8rem] sm:text-[0.9rem]">{title}</CardTitle>
+            <CardTitle className="text-foreground leading-relaxed text-[1rem] sm:text-[1.1rem]">{title}</CardTitle>
           </div>
         </div>
       </CardHeader>
@@ -87,15 +87,15 @@ export const QuestCard = ({
         <div className="flex items-center gap-3 flex-wrap">
           <div className="flex items-center gap-1 px-2 py-1 bg-primary/20 border-2 border-primary/50">
             <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
-            <span className="font-pixel text-[0.7rem] text-primary">RM {typeof bounty === 'number' ? bounty.toFixed(2) : '0.00'}</span>
+            <span className="font-pixel text-[0.9rem] text-primary">RM {typeof bounty === 'number' ? bounty.toFixed(2) : '0.00'}</span>
           </div>
           <div className="flex items-center gap-1 px-2 py-1 bg-xp/20 border-2 border-xp/50">
-            <Zap className="w-5 h-5 text-xp" strokeWidth={3} />
-            <span className="font-pixel text-[0.7rem] text-xp">+{xp} XP</span>
+            <Zap className="w-6 h-6 text-xp" strokeWidth={3} />
+            <span className="font-pixel text-[0.9rem] text-xp">+{xp} XP</span>
           </div>
           <div className="flex items-center gap-1 text-muted-foreground ml-auto">
-            <Clock className="w-4 h-4" strokeWidth={3} />
-            <span className="font-pixel text-[0.6rem]">{deadline}</span>
+            <Clock className="w-5 h-5" strokeWidth={3} />
+            <span className="font-pixel text-[0.8rem]">{deadline}</span>
           </div>
         </div>
       </CardContent>
