@@ -50,8 +50,8 @@ This application follows a modern full-stack architecture:
 
 ### Prerequisites
 
-- **PHP 8.2+** with Composer
-- **Node.js 18+** with npm
+- **PHP 8.4+** with Composer
+- **Node.js 22+** with npm
 - **MySQL 8.0+** or compatible database
 - **Git**
 
