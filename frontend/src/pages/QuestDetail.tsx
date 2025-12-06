@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Shield } from "lucide-react";
+import { ArrowLeft, MapPin, Coins, Zap, Clock, Swords, Shield, Info, Calendar } from "lucide-react";
 import { PixelContainer } from "@/components/PixelContainer";
 import { PixelHeader } from "@/components/PixelHeader";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuestStore } from "@/store/questStore";
-import { formatTime } from "@/lib/time-utils";
+import { formatTime, formatDate } from "@/lib/time-utils";
 
 const QuestDetail = () => {
   const { id } = useParams();
@@ -22,6 +22,11 @@ const QuestDetail = () => {
 
   // Calculate XP from bounty
   const calculateXP = (bounty: number) => Math.round(bounty * 10);
+  const calculateDifficulty = (bounty: number) => {
+    if (bounty < 5) return "Easy";
+    if (bounty < 10) return "Medium";
+    return "Hard";
+  };
 
   if (isLoading) {
     return (
@@ -87,15 +92,18 @@ const QuestDetail = () => {
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <Badge variant="forest" className="text-[0.9rem] px-3 py-1">{quest.category.toUpperCase()}</Badge>
-                <Badge 
+                <Badge
                   variant={quest.status === "open" ? "success" : quest.status === "in_progress" ? "warning" : "default"}
                   className="text-[0.9rem] px-3 py-1"
                 >
                   {quest.status.toUpperCase().replace('_', ' ')}
                 </Badge>
+                <Badge variant="warning">{difficulty}</Badge>
               </div>
+              <h1 className="font-pixel text-pixel-sm sm:text-pixel-base leading-relaxed text-foreground">
+                {quest.title}
+              </h1>
             </div>
-            <Badge variant="warning">{difficulty}</Badge>
           </div>
 
           {/* Quest Poster */}
@@ -114,9 +122,9 @@ const QuestDetail = () => {
                 <p className="font-pixel text-[0.8rem] text-muted-foreground">
                   {new Date(quest.created_at).toLocaleString()}
                 </p>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Quest Description */}
@@ -162,35 +170,27 @@ const QuestDetail = () => {
                   <p className="font-pixel text-pixel-base text-xp">+{xp} XP</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Deadline */}
-          <Card className="border-4 border-border shadow-pixel">
-            <CardHeader className="pb-2">
-              <CardTitle className="font-pixel text-pixel-sm flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-destructive" strokeWidth={3} />
-                DEADLINE
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="p-3 bg-muted/50 border-2 border-border">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock className={`w-5 h-5 ${isOverdue ? 'text-destructive' : 'text-warning'}`} strokeWidth={3} />
-                  <div className="flex-1">
-                    <p className="font-pixel text-pixel-base text-foreground">{formatDate(quest.deadline)}</p>
-                    <p className="font-pixel text-[0.8rem] text-muted-foreground">{formatTime(quest.deadline)}</p>
-                  </div>
-                </div>
-              )}
             </div>
-            <div className="mt-4 space-y-2">
-              <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                Created: {new Date(quest.created_at).toLocaleString()}
-              </p>
-              <p className="font-pixel text-[0.8rem] text-muted-foreground">
-                Updated: {new Date(quest.updated_at).toLocaleString()}
-              </p>
+          </CardContent>
+        </Card>
+
+        {/* Deadline */}
+        <Card className="mb-4 border-4 border-border shadow-pixel">
+          <CardHeader className="pb-2">
+            <CardTitle className="font-pixel text-pixel-sm flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-destructive" strokeWidth={3} />
+              DEADLINE
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="p-3 bg-muted/50 border-2 border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className={`w-5 h-5 ${new Date(quest.deadline) < new Date() ? 'text-destructive' : 'text-warning'}`} strokeWidth={3} />
+                <div className="flex-1">
+                  <p className="font-pixel text-pixel-base text-foreground">{formatDate(quest.deadline)}</p>
+                  <p className="font-pixel text-[0.8rem] text-muted-foreground">{formatTime(quest.deadline)}</p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
