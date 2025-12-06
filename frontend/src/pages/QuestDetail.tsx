@@ -22,11 +22,6 @@ const QuestDetail = () => {
 
   // Calculate XP from bounty
   const calculateXP = (bounty: number) => Math.round(bounty * 10);
-  const calculateDifficulty = (bounty: number) => {
-    if (bounty < 5) return "Easy";
-    if (bounty < 10) return "Medium";
-    return "Hard";
-  };
 
   if (isLoading) {
     return (
@@ -68,8 +63,8 @@ const QuestDetail = () => {
   }
 
   const quest = currentQuest;
-  const xp = calculateXP(quest.bounty);
-  const difficulty = calculateDifficulty(quest.bounty);
+  const bountyValue = typeof quest.bounty === 'number' ? quest.bounty : parseFloat(String(quest.bounty || 0));
+  const xp = calculateXP(bountyValue);
   const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" :
     quest.category.toLowerCase() === "queue" ? "⏳" :
       quest.category.toLowerCase() === "printing" ? "📄" : "✨";
@@ -98,7 +93,6 @@ const QuestDetail = () => {
                 >
                   {quest.status.toUpperCase().replace('_', ' ')}
                 </Badge>
-                <Badge variant="warning">{difficulty}</Badge>
               </div>
               <h1 className="font-pixel text-pixel-sm sm:text-pixel-base leading-relaxed text-foreground">
                 {quest.title}
@@ -161,7 +155,7 @@ const QuestDetail = () => {
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center gap-2 p-3 bg-primary/20 border-4 border-primary/50">
                 <Coins className="w-5 h-5 text-primary" strokeWidth={3} />
-                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">RM {quest.bounty.toFixed(2)}</span>
+                <span className="font-pixel text-pixel-sm sm:text-pixel-base text-primary">RM {bountyValue.toFixed(2)}</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-xp/20 border-2 border-xp/50">
                 <Zap className="w-6 h-6 text-xp" strokeWidth={3} />
@@ -195,17 +189,15 @@ const QuestDetail = () => {
           </CardContent>
         </Card>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button variant="quest" size="xl" className="flex-1">
-            <Shield className="w-5 h-5 mr-2" strokeWidth={3} />
-            MAKE AN OFFER
-          </Button>
-          <Button variant="gold" size="xl" className="flex-1">
-            <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
-            INSTANT ACCEPT
-          </Button>
-        </div>
+        {/* Action Button */}
+        {quest.status === 'open' && !quest.runner && (
+          <div className="mb-4">
+            <Button variant="quest" size="xl" className="w-full">
+              <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
+              ACCEPT OFFER
+            </Button>
+          </div>
+        )}
       </main>
     </PixelContainer>
   );
