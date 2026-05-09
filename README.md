@@ -1,5 +1,9 @@
 # Lobang Go 🎮
 
+In development sadly :( #notanymore
+
+Already ended sadly again :(
+
 A modern campus quest platform where students can post and accept quests for errands, deliveries, and help around campus. Earn XP, complete quests, and help your fellow students!
 
 ![Lobang Go Banner](./frontend/src/assets/hero-sprite.png)
