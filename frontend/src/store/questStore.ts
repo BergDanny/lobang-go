@@ -9,6 +9,7 @@ interface QuestState {
   error: string | null;
   fetchQuests: () => Promise<void>;
   fetchQuestById: (id: string) => Promise<void>;
+  takeQuest: (id: string) => Promise<void>;
   createQuest: (data: Partial<Quest>) => Promise<void>;
   updateQuest: (id: string, data: Partial<Quest>) => Promise<void>;
   deleteQuest: (id: string) => Promise<void>;
@@ -102,8 +103,26 @@ export const useQuestStore = create<QuestState>((set) => ({
     }
   },
 
+  takeQuest: async (id: string) => {
+    set({ isLoading: true, error: null });
+    try {
+      const takenQuest = await questApi.take(id);
+      set((state) => ({
+        quests: state.quests.map((q) => (q.id === id ? takenQuest : q)),
+        currentQuest: state.currentQuest?.id === id ? takenQuest : state.currentQuest,
+        isLoading: false,
+        error: null,
+      }));
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to take quest';
+      set({ error: errorMessage, isLoading: false });
+      throw error;
+    }
+  },
+
   clearError: () => set({ error: null }),
 
   setCurrentQuest: (quest: Quest | null) => set({ currentQuest: quest }),
+
 }));
 

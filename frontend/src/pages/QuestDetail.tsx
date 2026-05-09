@@ -12,7 +12,7 @@ import { formatTime, formatDate } from "@/lib/time-utils";
 const QuestDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { currentQuest, isLoading, error, fetchQuestById } = useQuestStore();
+  const { currentQuest, isLoading, error, fetchQuestById, takeQuest } = useQuestStore();
 
   useEffect(() => {
     if (id) {
@@ -76,6 +76,15 @@ const QuestDetail = () => {
   const categoryEmoji = quest.category.toLowerCase() === "delivery" ? "📦" :
     quest.category.toLowerCase() === "queue" ? "⏳" :
       quest.category.toLowerCase() === "printing" ? "📄" : "✨";
+
+  const handleTakeQuest = async () => {
+    try {
+      await takeQuest(quest.id);
+      navigate("/quests");      
+    } catch (error) {
+      console.error("Failed to take quest:", error);
+    }
+  }
 
   return (
     <PixelContainer>
@@ -201,9 +210,9 @@ const QuestDetail = () => {
         {/* Action Button */}
         {quest.status === 'open' && !quest.runner && (
           <div className="mb-4">
-            <Button variant="quest" size="xl" className="w-full">
+            <Button variant="quest" size="xl" className="w-full" onClick={handleTakeQuest}>
               <Swords className="w-5 h-5 mr-2" strokeWidth={3} />
-              ACCEPT OFFER
+              TAKE ON THIS QUEST
             </Button>
           </div>
         )}

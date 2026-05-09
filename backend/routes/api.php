@@ -18,9 +18,10 @@ Route::prefix('v1')->group(function () {
             Route::delete('/logout', 'logout');
         });
 
-        Route::controller(QuestController::class)->group(function () {
-            Route::get('quests/posted', 'posted');
-            Route::get('quests/taken', 'taken');
+        Route::prefix('quests')->controller(QuestController::class)->group(function () {
+            Route::get('posted', 'posted');
+            Route::get('taken', 'taken');
+            Route::post('{quest}/take', 'take_quest');
         });
 
         Route::apiResource('quests', QuestController::class);
