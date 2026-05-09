@@ -1,3 +1,5 @@
 LobangGo Web App
 
-In development sadly :(
+In development sadly :( #notanymore
+
+Already ended sadly again :(
